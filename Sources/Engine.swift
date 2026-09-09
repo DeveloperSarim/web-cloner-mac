@@ -16,9 +16,9 @@ enum Mode: String, CaseIterable, Identifiable {
     }
     var help: String {
         switch self {
-        case .clone: return "Pages, styles and assets save karta hai. Site offline khulti hai."
-        case .scan:  return "Sirf pages check karta hai, kuch download nahi hota."
-        case .shot:  return "Har page ka full-page PNG screenshot leta hai."
+        case .clone: return "Downloads pages, styles and assets. The site opens offline."
+        case .scan:  return "Only checks the pages. Nothing is downloaded."
+        case .shot:  return "Takes a full-page PNG screenshot of every page."
         }
     }
 }
@@ -116,7 +116,7 @@ final class Cloner: ObservableObject {
 
     func start() {
         guard let u = URL(string: target), u.host != nil else {
-            append("Valid address likhein, jaise example.com"); return
+            append("Enter a valid address, for example example.com"); return
         }
         pages = []; index = [:]; current = nil; log = []; files = 0; bytes = 0; lastOutput = nil
         running = true
@@ -179,7 +179,7 @@ final class Cloner: ObservableObject {
             DispatchQueue.main.async { done(proc.terminationStatus) }
         }
         do { try p.run(); task = p } catch {
-            append("Chala nahi saka: \(error.localizedDescription)")
+            append("Could not run: \(error.localizedDescription)")
             running = false; installing = false; status = "Failed"
         }
     }
@@ -252,7 +252,7 @@ final class Cloner: ObservableObject {
             let found = pages.filter { $0.state == .done || $0.state == .active }.map(\.id)
             let list = Array(found.prefix(Cloner.shotCap))
             if found.count > list.count {
-                append("Note: pehle \(Cloner.shotCap) pages ke screenshots liye ja rahe hain.")
+                append("Note: taking screenshots of the first \(Cloner.shotCap) pages.")
             }
             startShots(list.isEmpty ? [target] : list)
             return
@@ -357,8 +357,8 @@ final class Cloner: ObservableObject {
     func installHomebrewInTerminal() {
         let cmd = "/bin/bash -c \\\"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\\\" && brew install wget"
         let script = "tell application \"Terminal\" to do script \"\(cmd)\"\ntell application \"Terminal\" to activate"
-        status = "Terminal me Homebrew install ho raha hai…"
-        append("Homebrew nahi mila. Terminal khol raha hoon — apna Mac password wahan dalein.")
+        status = "Installing Homebrew in Terminal…"
+        append("Homebrew not found. Opening Terminal — enter your Mac password there.")
         run("/usr/bin/osascript", ["-e", script], in: nil, label: "osascript") { _ in }
     }
 

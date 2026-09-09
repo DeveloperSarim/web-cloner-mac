@@ -6,7 +6,7 @@
 
 **Free website downloader, site cloner and full-page screenshot tool for macOS.**
 
-Kisi bhi website ko apne Mac par download karein, uska sitemap banayein, ya har page ka screenshot lein — ek clean native app se, bina Terminal chhue.
+Download any website to your Mac, generate its sitemap, or capture a screenshot of every page — from one clean native app, without touching the Terminal.
 
 [![Download](https://img.shields.io/badge/Download-WebCloner.dmg-147470?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg)
 
@@ -16,128 +16,128 @@ Kisi bhi website ko apne Mac par download karein, uska sitemap banayein, ya har 
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/DeveloperSarim/web-cloner-mac?style=flat-square&color=147470)](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest)
 
-<img src="docs/screenshot.png" width="820" alt="Web Cloner cloning a website on macOS, showing live page list with status" />
+<img src="docs/screenshot.png" width="820" alt="Web Cloner cloning a website on macOS, showing a live page list with per-page status" />
 
 </div>
 
 ---
 
-## Web Cloner kya hai
+## What is Web Cloner
 
-Web Cloner ek **native macOS app** hai jo battle-tested `wget` ko ek modern SwiftUI interface deta hai. Poori website offline save karein, sirf uske pages scan karein, ya har page ka full-page PNG screenshot banayein. Har page live list me apni status ke saath dikhta hai, is liye aapko pata rehta hai kya ho chuka hai aur kya baaki hai.
+Web Cloner is a **native macOS app** that puts a modern SwiftUI interface on top of battle-tested `wget`. Save a whole website for offline reading, scan a site to discover its pages, or capture a full-page PNG of every page. Each page appears in a live list with its own status, so you always know what finished and what is still running.
 
-HTTrack aur command-line `wget --mirror` ka aasan, khoobsurat mac alternative.
+It is the friendly Mac alternative to HTTrack and to typing `wget --mirror` by hand.
 
 ## Features
 
 | | |
 |---|---|
-| 🌐 **Clone website** | Pages, CSS, JavaScript aur images download kar ke offline browsable copy banata hai, links khud convert hote hain |
-| 🔍 **Scan only** | Kuch download kiye baghair site ke saare pages discover karta hai |
-| 📸 **Screenshots** | Har page ka full-page PNG (1280 / 1440 / 1920 width) |
-| 🗺️ **Sitemap generator** | Har job ke baad standard `sitemap.xml` |
-| 📊 **Live page list** | Downloading, Done, Failed, Redirect — status, size aur click-to-filter counters |
-| ⚙️ **Auto setup** | wget na ho to app khud install kar deti hai, Homebrew ke zariye |
-| 🚦 **Speed control** | Polite (rate-limited), Normal ya Fast — block hone se bachne ke liye |
-| 🧭 **Depth control** | Poori site ya sirf 1–5 levels |
-| 🖥️ **Universal binary** | Intel aur Apple Silicon dono par native |
+| 🌐 **Clone website** | Downloads pages, CSS, JavaScript and images, converts links, and leaves you a site that browses offline |
+| 🔍 **Scan only** | Discovers every page on a site without downloading anything |
+| 📸 **Screenshots** | Full-page PNG of each page at 1280, 1440 or 1920 width |
+| 🗺️ **Sitemap generator** | Writes a standard `sitemap.xml` after every job |
+| 📊 **Live page list** | Downloading, Done, Failed and Redirect states with sizes and click-to-filter counters |
+| ⚙️ **Automatic setup** | Installs `wget` for you through Homebrew if it is missing |
+| 🚦 **Speed control** | Polite (rate limited), Normal or Fast, so you do not get blocked |
+| 🧭 **Depth control** | Whole site, or only 1 to 5 levels deep |
+| 🖥️ **Universal binary** | Runs natively on both Intel and Apple Silicon |
 
 ## Install
 
-### 1. DMG se (recommended)
+### 1. From the DMG (recommended)
 
-1. **[WebCloner.dmg download karein](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg)**
-2. DMG kholein aur **Web Cloner** ko **Applications** folder par drag karein
-3. App kholein. Pehli baar macOS roke to: **right-click → Open → Open**
+1. **[Download WebCloner.dmg](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg)**
+2. Open the DMG and drag **Web Cloner** onto the **Applications** folder
+3. Launch it. The first time macOS blocks it, use **right-click → Open → Open**
 
 ### 2. wget
 
-App ko `wget` chahiye. Agar mojood na ho to app khud **Setup** card dikhati hai:
+The app needs `wget`. If it is missing, a **Setup** card appears:
 
-- Homebrew mojood hai → **Install wget** button dabayein, app background me `brew install wget` chala deti hai
-- Homebrew nahi hai → wahi button Terminal khol kar Homebrew + wget dono install karta hai (wahan apna Mac password dalna hoga)
+- Homebrew installed → press **Install wget** and the app runs `brew install wget` in the background
+- No Homebrew → the same button opens Terminal and installs Homebrew and wget (enter your Mac password there)
 
-Manually karna ho to:
+To do it yourself:
 
 ```bash
 brew install wget
 ```
 
-### 3. Source se build (optional)
+### 3. Build from source (optional)
 
 ```bash
 git clone https://github.com/DeveloperSarim/web-cloner-mac.git
 cd web-cloner-mac
-./build.sh          # WebCloner.app + WebCloner.dmg banata hai
+./build.sh          # produces WebCloner.app and WebCloner.dmg
 ```
 
-Sirf Xcode Command Line Tools chahiye (`xcode-select --install`). Poora Xcode zaroori nahi.
+Only the Xcode Command Line Tools are required (`xcode-select --install`). Full Xcode is not needed.
 
-## Kaise use karein
+## How to use
 
-1. **Address** me website likhein — `example.com` ya poora URL
-2. **Save to** se folder chunein
-3. **Job** chunein: Clone, Scan ya Screenshot
-4. **Start** dabayein aur neeche pages ko live aate dekhein
-5. Khatam hone par **Open Folder** ya **Open Website** dabayein
+1. Type the site into **Address**, either `example.com` or a full URL
+2. Pick a folder under **Save to**
+3. Choose a **Job**: Clone, Scan or Screenshot
+4. Press **Start** and watch the pages arrive below
+5. When it finishes, press **Open Folder** or **Open Website**
 
 ### Options
 
-| Option | Kya karta hai |
+| Option | What it does |
 |---|---|
-| **How deep** | Poori site, ya sirf 1 / 2 / 3 / 5 levels andar tak |
-| **Speed** | `Polite` wait + rate limit lagata hai, `Fast` bilkul nahi rukta |
-| **Width** | Screenshot ki chaurai: 1280, 1440 ya 1920 px |
-| **Images aur media** | Off karein to sirf HTML, CSS, JS — bohot tez aur chhota |
-| **sitemap.xml** | Save folder me sitemap likhta hai |
-| **robots.txt ignore** | Sirf apni ya allowed sites ke liye |
+| **How deep** | The whole site, or only 1, 2, 3 or 5 levels in |
+| **Speed** | `Polite` adds a wait and a rate limit, `Fast` never pauses |
+| **Width** | Screenshot width: 1280, 1440 or 1920 px |
+| **Download images and media** | Turn off for HTML, CSS and JS only, which is far faster and smaller |
+| **Create sitemap.xml** | Writes the sitemap into your save folder |
+| **Ignore robots.txt** | Only for sites you own or are allowed to copy |
 
-### Files kahan jati hain
+### Where the files go
 
 ```
 <save folder>/
-├── example.com/          # cloned site — index.html kholein
+├── example.com/          # the cloned site, open index.html
 │   └── index.html
-├── screenshots/          # Screenshot job ke PNGs
-└── sitemap.xml           # discovered pages
+├── screenshots/          # PNGs from the Screenshot job
+└── sitemap.xml           # every page discovered
 ```
 
 ## Requirements
 
-- macOS 13 Ventura ya us se naya
-- Intel ya Apple Silicon Mac (universal binary)
-- `wget` (app khud install kar sakti hai)
+- macOS 13 Ventura or newer
+- Intel or Apple Silicon Mac (universal binary)
+- `wget` (the app can install it for you)
 
 ## FAQ
 
 <details>
-<summary><strong>Mac par poori website kaise download karein?</strong></summary>
+<summary><strong>How do I download an entire website on a Mac?</strong></summary>
 
-Web Cloner kholein, address likhein, **Clone** chunein aur **Start Cloning** dabayein. App `wget` se site mirror karti hai aur links convert kar deti hai, taake `index.html` internet ke baghair bhi sahi chale.
+Open Web Cloner, type the address, choose **Clone** and press **Start Cloning**. The app mirrors the site with `wget` and rewrites the links, so `index.html` works without an internet connection.
 </details>
 
 <details>
-<summary><strong>Kya yeh HTTrack ka alternative hai?</strong></summary>
+<summary><strong>Is this an HTTrack alternative?</strong></summary>
 
-Haan. Wahi kaam — website mirroring — lekin native macOS interface, live page list, sitemap generator aur built-in screenshots ke saath.
+Yes. Same job, website mirroring, but with a native macOS interface, a live page list, a sitemap generator and built-in screenshots.
 </details>
 
 <details>
-<summary><strong>Kya JavaScript se bani sites clone hoti hain?</strong></summary>
+<summary><strong>Does it work on JavaScript-heavy sites?</strong></summary>
 
-`wget` JavaScript run nahi karta, is liye poori tarah client-side rendered sites ka sirf shell milta hai. Aise sites ke liye **Screenshot** job behtar hai — woh asli browser engine (WebKit) use karta hai.
+`wget` does not run JavaScript, so a fully client-rendered site gives you only its shell. Use the **Screenshot** job for those, because it renders in a real browser engine (WebKit).
 </details>
 
 <details>
-<summary><strong>Screenshots kis size ke hote hain?</strong></summary>
+<summary><strong>How large are the screenshots?</strong></summary>
 
-Full-page PNG, chuni hui width (1280 / 1440 / 1920) aur poori page height ke saath. Ek job me zyada se zyada 60 pages.
+Full-page PNGs at the width you choose (1280, 1440 or 1920) and the full height of the page. One job captures up to 60 pages.
 </details>
 
 <details>
-<summary><strong>Kya app safe hai? Signed hai?</strong></summary>
+<summary><strong>Is the app signed and safe?</strong></summary>
 
-App ad-hoc signed hai, Apple notarized nahi. Is liye pehli baar **right-click → Open** karna padta hai. Poora source yahin hai — khud build kar sakte hain.
+It is ad-hoc signed but not notarized by Apple, which is why the first launch needs **right-click → Open**. The entire source is in this repository, so you can build it yourself.
 </details>
 
 ## Development
@@ -146,12 +146,12 @@ App ad-hoc signed hai, Apple notarized nahi. Is liye pehli baar **right-click �
 Sources/Engine.swift     # wget arguments, output parsing, sitemap, screenshots
 Sources/UI.swift         # SwiftUI interface
 Sources/makeicon.swift   # app icon generator
-Tests/engine/main.swift  # parsing + sitemap checks
+Tests/engine/main.swift  # parsing and sitemap checks
 Tests/shot/main.swift    # real screenshot check
-build.sh                 # universal build + DMG
+build.sh                 # universal build and DMG
 ```
 
-Tests chalayein:
+Run the tests:
 
 ```bash
 swiftc Sources/Engine.swift Tests/engine/main.swift -o /tmp/t && /tmp/t
@@ -160,7 +160,7 @@ swiftc Sources/Engine.swift Tests/shot/main.swift  -o /tmp/s && /tmp/s
 
 ## Contributing
 
-Issues aur pull requests welcome hain. Bada change karne se pehle ek issue khol lein.
+Issues and pull requests are welcome. Please open an issue first for anything large.
 
 ## License
 
@@ -171,5 +171,5 @@ Issues aur pull requests welcome hain. Bada change karne se pehle ek issue khol 
 **Sarim Yaseen** — [@DeveloperSarim](https://github.com/DeveloperSarim)
 
 <div align="center">
-<sub>Agar yeh app kaam aayi to repo ko ⭐ zaroor dein.</sub>
+<sub>If this app saved you time, a ⭐ on the repo helps.</sub>
 </div>

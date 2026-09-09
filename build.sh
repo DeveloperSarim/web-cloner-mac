@@ -31,7 +31,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>CFBundleVersion</key><string>1</string>
   <key>LSMinimumSystemVersion</key><string>$MIN</string>
   <key>NSHighResolutionCapable</key><true/>
-  <key>NSAppleEventsUsageDescription</key><string>Homebrew install karne ke liye Terminal kholta hai.</string>
+  <key>NSAppleEventsUsageDescription</key><string>Opens Terminal to install Homebrew.</string>
 </dict></plist>
 PLIST
 

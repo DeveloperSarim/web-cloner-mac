@@ -57,7 +57,7 @@ struct ContentView: View {
                 .resizable().frame(width: 30, height: 30)
             VStack(alignment: .leading, spacing: 0) {
                 Text("Web Cloner").font(.system(size: 15, weight: .semibold))
-                Text("Save, scan ya screenshot any website")
+                Text("Save, scan or screenshot any website")
                     .font(.system(size: 11)).foregroundStyle(.secondary)
             }
             Spacer()
@@ -90,7 +90,7 @@ struct ContentView: View {
     private var setupCard: some View {
         card("Setup", "wrench.and.screwdriver") {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Cloning ke liye wget chahiye. Yeh app khud install kar sakti hai.")
+                Text("Cloning needs wget. This app can install it for you.")
                     .font(.system(size: 12)).foregroundStyle(.secondary)
                 HStack(spacing: 10) {
                     Button(c.installing ? "Installing…" : "Install wget") { c.installWget() }
@@ -100,8 +100,8 @@ struct ContentView: View {
                     Spacer()
                 }
                 Text(c.brewPath == nil
-                     ? "Homebrew nahi mila — button Terminal me Homebrew + wget install karega."
-                     : "Homebrew mil gaya: brew install wget chalega.")
+                     ? "Homebrew not found — the button installs Homebrew and wget in Terminal."
+                     : "Homebrew found — brew install wget will run.")
                     .font(.system(size: 11)).foregroundStyle(.secondary)
             }
         }
@@ -170,14 +170,14 @@ struct ContentView: View {
                 Divider().padding(.vertical, 2)
                 VStack(alignment: .leading, spacing: 9) {
                     if c.mode == .clone {
-                        Toggle("Images aur media download karein", isOn: $c.withAssets)
-                        hint("Off = sirf HTML, CSS, JS. Tez aur chhota.")
+                        Toggle("Download images and media", isOn: $c.withAssets)
+                        hint("Off = HTML, CSS and JS only. Much faster and smaller.")
                     }
-                    Toggle("sitemap.xml banayein", isOn: $c.makeSitemap)
-                    Toggle("robots.txt ignore karein", isOn: $c.ignoreRobots)
-                    hint("Sirf apni ya allowed sites ke liye.")
+                    Toggle("Create sitemap.xml", isOn: $c.makeSitemap)
+                    Toggle("Ignore robots.txt", isOn: $c.ignoreRobots)
+                    hint("Only for sites you own or are allowed to copy.")
                     if c.mode == .shot {
-                        hint("Pehle \(Cloner.shotCap) pages tak screenshots — screenshots/ folder me.")
+                        hint("Up to \(Cloner.shotCap) pages, saved in the screenshots/ folder.")
                     }
                 }
                 .toggleStyle(.checkbox).font(.system(size: 12)).disabled(c.running)
@@ -270,7 +270,7 @@ struct ContentView: View {
                         Divider().opacity(0.35)
                     }
                     if c.pages.isEmpty {
-                        Text("Abhi kuch nahi. Address dalein aur start karein.")
+                        Text("Nothing yet. Enter an address and press start.")
                             .font(.system(size: 12)).foregroundStyle(.secondary).padding(30)
                     }
                 }
