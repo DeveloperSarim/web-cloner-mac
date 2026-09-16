@@ -35,6 +35,7 @@ It is the friendly Mac alternative to HTTrack and to typing `wget --mirror` by h
 | 🌐 **Clone website** | Downloads pages, CSS, JavaScript and images, converts links, and leaves you a site that browses offline |
 | 🔍 **Scan only** | Discovers every page on a site without downloading anything |
 | 📸 **Screenshots** | Full-page PNG of each page at 1280, 1440 or 1920 width |
+| ♻️ **Updates itself** | Checks GitHub on launch and installs the new version in place, so you never download or delete anything by hand |
 | 🖼️ **CDN assets included** | Images, fonts and stylesheets served from another domain are downloaded too and relinked, so nothing loads from the internet |
 | 🗺️ **Sitemap generator** | Writes a standard `sitemap.xml` after every job |
 | 📊 **Live page list** | Downloading, Done, Failed and Redirect states with sizes and click-to-filter counters |
@@ -64,7 +65,11 @@ To do it yourself:
 brew install wget
 ```
 
-### 3. Build from source (optional)
+### 3. Updates
+
+There is nothing to do. On launch the app asks GitHub for the newest release and, if there is one, shows a bar at the top with **Update Now**. Pressing it downloads the DMG, swaps the app in place and reopens it, keeping your settings and your existing downloads. You can also trigger it from **Web Cloner → Check for Updates…**.
+
+### 4. Build from source (optional)
 
 ```bash
 git clone https://github.com/DeveloperSarim/web-cloner-mac.git
@@ -151,18 +156,23 @@ It is ad-hoc signed but not notarized by Apple, which is why the first launch ne
 
 ```
 Sources/Engine.swift     # wget arguments, output parsing, sitemap, screenshots
+Sources/Updater.swift    # GitHub release check and in-place update
 Sources/UI.swift         # SwiftUI interface
 Sources/makeicon.swift   # app icon generator
 Tests/engine/main.swift  # parsing and sitemap checks
 Tests/shot/main.swift    # real screenshot check
+Tests/update/main.swift  # real release download and app swap
 build.sh                 # universal build and DMG
 ```
+
+Releasing a new version: bump `VERSION` in `build.sh`, run it, then publish a GitHub release whose tag is the same number (`v1.1.0`) with `WebCloner.dmg` attached. Every installed copy picks it up on next launch.
 
 Run the tests:
 
 ```bash
 swiftc Sources/Engine.swift Tests/engine/main.swift -o /tmp/t && /tmp/t
 swiftc Sources/Engine.swift Tests/shot/main.swift  -o /tmp/s && /tmp/s
+swiftc Sources/Updater.swift Tests/update/main.swift -o /tmp/u && /tmp/u
 ```
 
 ## Contributing

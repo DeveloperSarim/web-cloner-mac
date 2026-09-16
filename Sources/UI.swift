@@ -27,6 +27,7 @@ extension PageState {
 }
 
 struct ContentView: View {
+    @EnvironmentObject var up: Updater
     @StateObject private var c = Cloner()
     @State private var wide = true
     @State private var tab = 0
@@ -36,6 +37,7 @@ struct ContentView: View {
         VStack(spacing: 0) {
             titleBar
             Divider()
+            updateBar
             ScrollView { config.padding(18) }
                 .frame(maxHeight: 430)
                 .background(Color(nsColor: .windowBackgroundColor))
@@ -43,6 +45,7 @@ struct ContentView: View {
             results
         }
         .frame(minWidth: 660, minHeight: 580)
+        .onAppear { up.check() }
         .background(GeometryReader { g in
             Color.clear.onAppear { wide = g.size.width > 840 }
                 .onChange(of: g.size.width) { wide = $0 > 840 }
@@ -67,6 +70,60 @@ struct ContentView: View {
         }
         .padding(.horizontal, 18).padding(.vertical, 12)
         .background(cardBG)
+    }
+
+    // MARK: Update banner
+
+    @ViewBuilder private var updateBar: some View {
+        switch up.state {
+        case .found:
+            updateRow(icon: "arrow.down.circle.fill", tint: accent) {
+                VStack(alignment: .leading, spacing: 1) {
+                    Text("Version \(up.release?.version ?? "") is ready")
+                        .font(.system(size: 12, weight: .semibold))
+                    Text(up.release?.headline ?? "").font(.system(size: 11))
+                        .foregroundStyle(.secondary).lineLimit(1)
+                }
+                Spacer()
+                Button("Update Now") { up.install() }.buttonStyle(.borderedProminent).tint(accent)
+                Button("Later") { up.dismiss() }
+            }
+        case .downloading, .installing:
+            updateRow(icon: "arrow.down.circle", tint: accent) {
+                Text(up.state == .downloading ? "Downloading the update…" : "Installing — the app will restart")
+                    .font(.system(size: 12))
+                ProgressView().controlSize(.small).scaleEffect(0.6)
+                Spacer()
+            }
+        case .current where up.manual:
+            updateRow(icon: "checkmark.circle.fill", tint: accent) {
+                Text("You are on the latest version (\(up.current))").font(.system(size: 12))
+                Spacer()
+                Button("OK") { up.dismiss() }
+            }
+        case .failed(let why):
+            updateRow(icon: "exclamationmark.triangle.fill", tint: .orange) {
+                Text("Update failed: \(why)").font(.system(size: 12)).lineLimit(2)
+                Spacer()
+                Button("Dismiss") { up.dismiss() }
+            }
+        default:
+            EmptyView()
+        }
+    }
+
+    private func updateRow<C: View>(icon: String, tint: Color,
+                                    @ViewBuilder content: () -> C) -> some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 9) {
+                Image(systemName: icon).foregroundStyle(tint)
+                content()
+            }
+            .padding(.horizontal, 18).padding(.vertical, 9)
+            .frame(maxWidth: .infinity)
+            .background(tint.opacity(0.10))
+            Divider()
+        }
     }
 
     // MARK: Config
@@ -366,8 +423,15 @@ struct ContentView: View {
 
 @main
 struct WebClonerApp: App {
+    @StateObject private var up = Updater()
+
     var body: some Scene {
-        Window("Web Cloner", id: "main") { ContentView() }
+        Window("Web Cloner", id: "main") { ContentView().environmentObject(up) }
             .defaultSize(width: 960, height: 820)
+            .commands {
+                CommandGroup(after: .appInfo) {
+                    Button("Check for Updates…") { up.check(manual: true) }
+                }
+            }
     }
 }
