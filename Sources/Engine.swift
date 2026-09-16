@@ -100,6 +100,19 @@ final class Cloner: ObservableObject {
     @Published var speed: Speed = .normal
     @Published var shotWidth = 1440
 
+    // Advanced, for developers. Empty means "not set" and adds no flag.
+    @Published var excludePaths = ""     // /blog, /admin      -> --exclude-directories
+    @Published var includePaths = ""     // /docs              -> --include-directories
+    @Published var rejectRegex = ""      // /tag/|\.pdf$       -> --reject-regex
+    @Published var rejectTypes = ""      // pdf, zip           -> --reject
+    @Published var extraDomains = ""     // cdn.site.com       -> --span-hosts --domains
+    @Published var headers = ""          // one per line       -> --header
+    @Published var authUser = ""
+    @Published var authPass = ""
+    @Published var quotaMB = ""          // stop after N MB    -> --quota
+    @Published var insecure = false      //                    -> --no-check-certificate
+    @Published var keepLinks = false     // leave URLs untouched, no --convert-links
+
     // Output
     @Published var pages: [Page] = []
     @Published var log: [String] = []
@@ -153,6 +166,81 @@ final class Cloner: ObservableObject {
         if mode == .shot && wgetPath == nil { startShots([u.absoluteString]) } else { startWget() }
     }
 
+    /// A comma list the user typed, cleaned up: "  /blog , /admin " -> "/blog,/admin"
+    static func list(_ s: String) -> String {
+        s.split(whereSeparator: { $0 == "," || $0 == "\n" })
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
+            .joined(separator: ",")
+    }
+
+    var activeRules: Int {
+        [excludePaths, includePaths, rejectRegex, rejectTypes, extraDomains, headers, authUser, quotaMB]
+            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }.count
+            + (insecure ? 1 : 0) + (keepLinks ? 1 : 0)
+    }
+
+    func wgetArgs() -> [String] {
+        var args = ["--recursive", "--level=\(Cloner.depthValues[depthIndex])", "--no-parent",
+                    "--timeout=20", "--tries=2", "--waitretry=2"] + speed.args
+        args.append("--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 " +
+                    "(KHTML, like Gecko) Version/17.0 Safari/605.1.15")
+        if ignoreRobots { args += ["-e", "robots=off"] }
+
+        if mode != .clone {
+            args += ["--spider", "--delete-after"]
+        } else {
+            if !keepLinks { args.append("--convert-links") }
+            args += ["--adjust-extension", "--page-requisites", "--directory-prefix=\(dest.path)"]
+        }
+
+        // what not to fetch
+        var reject = Cloner.list(rejectTypes)
+        if !withAssets && mode == .clone {
+            let media = mediaExts.sorted().joined(separator: ",")
+            reject = reject.isEmpty ? media : media + "," + reject
+        }
+        if !reject.isEmpty { args.append("--reject=\(reject)") }
+        let skip = Cloner.list(excludePaths)
+        if !skip.isEmpty { args.append("--exclude-directories=\(skip)") }
+        let only = Cloner.list(includePaths)
+        if !only.isEmpty { args.append("--include-directories=\(only)") }
+        let pattern = rejectRegex.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !pattern.isEmpty { args.append("--reject-regex=\(pattern)") }
+
+        // where it may go
+        let extra = Cloner.list(extraDomains)
+        if !extra.isEmpty, let host = URL(string: target)?.host {
+            args += ["--span-hosts", "--domains=\(host),\(extra)"]
+        }
+
+        // how to ask
+        for line in headers.split(separator: "\n") {
+            let h = line.trimmingCharacters(in: .whitespaces)
+            if !h.isEmpty { args.append("--header=\(h)") }
+        }
+        if !authUser.isEmpty { args.append("--user=\(authUser)") }
+        if !authPass.isEmpty { args.append("--password=\(authPass)") }
+        if let mb = Int(quotaMB.trimmingCharacters(in: .whitespaces)), mb > 0 {
+            args.append("--quota=\(mb)m")
+        }
+        if insecure { args.append("--no-check-certificate") }
+
+        args.append(target)
+        return args
+    }
+
+    /// The exact command, ready to paste into a terminal.
+    func commandLine(maskPassword: Bool = false) -> String {
+        let quoted = wgetArgs().map { arg -> String in
+            var a = arg
+            if maskPassword, a.hasPrefix("--password=") { a = "--password=•••" }
+            return a.rangeOfCharacter(from: CharacterSet(charactersIn: " \"'$&|<>*?()[]{};")) == nil
+                ? a : "'" + a.replacingOccurrences(of: "'", with: "'\\''") + "'"
+        }
+        return (["wget"] + quoted).joined(separator: " ")
+    }
+
     private func startWget() {
         guard let wget = wgetPath else { return }
         status = mode == .clone ? "Cloning…" : "Scanning pages…"
@@ -160,22 +248,7 @@ final class Cloner: ObservableObject {
             .appendingPathComponent("webcloner-\(UUID().uuidString)")
         try? FileManager.default.createDirectory(at: scratch, withIntermediateDirectories: true)
 
-        var args = ["--recursive", "--level=\(Cloner.depthValues[depthIndex])", "--no-parent",
-                    "--timeout=20", "--tries=2", "--waitretry=2"] + speed.args
-        args.append("--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 " +
-                    "(KHTML, like Gecko) Version/17.0 Safari/605.1.15")
-        if ignoreRobots { args += ["-e", "robots=off"] }
-        if mode != .clone {
-            args += ["--spider", "--delete-after"]
-        } else {
-            args += ["--convert-links", "--adjust-extension", "--page-requisites",
-                     "--directory-prefix=\(dest.path)"]
-            if !withAssets {
-                args += ["--reject", "jpg,jpeg,png,gif,webp,svg,ico,bmp,tif,tiff,avif,mp4,webm,mov,mp3,wav,ogg"]
-            }
-        }
-        args.append(target)
-        run(wget, args, in: scratch, label: "wget") { [weak self] code in
+        run(wget, wgetArgs(), in: scratch, label: "wget") { [weak self] code in
             try? FileManager.default.removeItem(at: scratch)
             self?.finish(code: code)
         }
@@ -192,7 +265,10 @@ final class Cloner: ObservableObject {
         p.environment = env
         let pipe = Pipe()
         p.standardOutput = pipe; p.standardError = pipe
-        append("$ \(label) " + args.map { $0.contains(" ") ? "\"\($0)\"" : $0 }.joined(separator: " "))
+        let shown = label == "wget" && args == wgetArgs()
+            ? commandLine(maskPassword: true)
+            : ([label] + args.map { $0.contains(" ") ? "\"\($0)\"" : $0 }).joined(separator: " ")
+        append("$ " + shown)
 
         var carry = ""
         pipe.fileHandleForReading.readabilityHandler = { [weak self] h in
@@ -286,7 +362,7 @@ final class Cloner: ObservableObject {
             startShots(list.isEmpty ? [target] : list)
             return
         }
-        if mode == .clone && running && !externalDone {
+        if mode == .clone && running && !externalDone && !keepLinks {
             externalDone = true
             if fetchExternal() { return }
         }

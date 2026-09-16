@@ -31,6 +31,8 @@ struct ContentView: View {
     @StateObject private var c = Cloner()
     @State private var wide = true
     @State private var tab = 0
+    @State private var advanced = false
+    @State private var copied = false
     @State private var filter: PageState?
 
     var body: some View {
@@ -39,7 +41,8 @@ struct ContentView: View {
             Divider()
             updateBar
             ScrollView { config.padding(18) }
-                .frame(maxHeight: 430)
+                .frame(minHeight: 240, maxHeight: advanced ? 780 : 470)
+                .layoutPriority(advanced ? 1 : 0)
                 .background(Color(nsColor: .windowBackgroundColor))
             Divider()
             results
@@ -140,6 +143,7 @@ struct ContentView: View {
                 sourceCard
                 optionsCard
             }
+            advancedCard
             actions
         }
     }
@@ -238,7 +242,112 @@ struct ContentView: View {
                     }
                 }
                 .toggleStyle(.checkbox).font(.system(size: 12)).disabled(c.running)
+
             }
+        }
+    }
+
+    // MARK: Developer options
+
+    private var advancedCard: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            DisclosureGroup(isExpanded: $advanced) {
+                developerOptions
+            } label: {
+                HStack(spacing: 7) {
+                    Image(systemName: "hammer").font(.system(size: 10))
+                    Text("Advanced").font(.system(size: 10, weight: .semibold))
+                        .textCase(.uppercase).kerning(0.5)
+                    if c.activeRules > 0 {
+                        Text("\(c.activeRules) set").font(.system(size: 10, weight: .medium))
+                            .foregroundStyle(accent)
+                            .padding(.horizontal, 6).padding(.vertical, 2)
+                            .background(Capsule().fill(accent.opacity(0.12)))
+                    }
+                    if !advanced {
+                        Text("skip paths, headers, auth, wget command")
+                            .font(.system(size: 11)).foregroundStyle(.tertiary)
+                    }
+                }
+                .foregroundStyle(.secondary)
+            }
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: 12).fill(cardBG))
+        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(hairline.opacity(0.7)))
+    }
+
+    private var developerOptions: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 11) {
+                GridRow {
+                    devField("Skip these paths", "/blog, /admin/*", $c.excludePaths)
+                    devField("Only these paths", "/docs", $c.includePaths)
+                    devField("Skip file types", "pdf, zip, mp4", $c.rejectTypes)
+                }
+                GridRow {
+                    devField("Skip URLs matching", "regex: /tag/|\\.pdf$", $c.rejectRegex)
+                    devField("Also allow domains", "cdn.example.com", $c.extraDomains)
+                    devField("Stop after (MB)", "500", $c.quotaMB, width: 110)
+                }
+                GridRow {
+                    devField("HTTP user", "", $c.authUser, width: 150)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("Password").font(.system(size: 11, weight: .medium))
+                            .foregroundStyle(.secondary)
+                        SecureField("", text: $c.authPass)
+                            .textFieldStyle(.roundedBorder).font(.system(size: 12)).frame(width: 150)
+                    }
+                    Color.clear.frame(height: 1)
+                }
+            }
+            VStack(alignment: .leading, spacing: 3) {
+                Text("Extra request headers, one per line")
+                    .font(.system(size: 11, weight: .medium)).foregroundStyle(.secondary)
+                TextEditor(text: $c.headers)
+                    .font(.system(size: 11, design: .monospaced))
+                    .frame(height: 44).frame(maxWidth: 700).padding(4)
+                    .background(RoundedRectangle(cornerRadius: 6).fill(Color(nsColor: .textBackgroundColor)))
+                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(hairline))
+                Text("Cookie: session=abc123").font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(.tertiary)
+            }
+            HStack(spacing: 26) {
+                Toggle("Keep original links, do not rewrite them", isOn: $c.keepLinks)
+                Toggle("Ignore SSL certificate errors", isOn: $c.insecure)
+                Spacer()
+            }
+            .toggleStyle(.checkbox).font(.system(size: 12))
+
+            HStack(spacing: 8) {
+                Button(copied ? "Copied" : "Copy wget command") {
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(c.commandLine(), forType: .string)
+                    copied = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) { copied = false }
+                }
+                .disabled(c.target.isEmpty)
+                Button("Clear") {
+                    c.excludePaths = ""; c.includePaths = ""; c.rejectRegex = ""; c.rejectTypes = ""
+                    c.extraDomains = ""; c.headers = ""; c.authUser = ""; c.authPass = ""
+                    c.quotaMB = ""; c.insecure = false; c.keepLinks = false
+                }
+                .disabled(c.activeRules == 0)
+                Spacer()
+            }
+            .controlSize(.small)
+        }
+        .padding(.top, 10)
+        .disabled(c.running)
+    }
+
+    private func devField(_ label: String, _ hint: String,
+                          _ text: Binding<String>, width: CGFloat = 210) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text(label).font(.system(size: 11, weight: .medium)).foregroundStyle(.secondary)
+            TextField(hint, text: text)
+                .textFieldStyle(.roundedBorder).font(.system(size: 12)).frame(width: width)
         }
     }
 
@@ -296,7 +405,7 @@ struct ContentView: View {
             Divider()
             if tab == 0 { pageList } else { logList }
         }
-        .frame(maxHeight: .infinity)
+        .frame(minHeight: 170, maxHeight: .infinity)
     }
 
     private var shown: [Page] {
@@ -427,7 +536,7 @@ struct WebClonerApp: App {
 
     var body: some Scene {
         Window("Web Cloner", id: "main") { ContentView().environmentObject(up) }
-            .defaultSize(width: 960, height: 820)
+            .defaultSize(width: 980, height: 880)
             .commands {
                 CommandGroup(after: .appInfo) {
                     Button("Check for Updates…") { up.check(manual: true) }

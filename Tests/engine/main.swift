@@ -64,4 +64,51 @@ assert(xml.contains("a=1&amp;b=2"), xml)
 assert(!xml.contains("/gone"), "failed pages must stay out of the sitemap")
 try? FileManager.default.removeItem(at: c.dest)
 
+// developer options turn into the right wget flags
+let d = Cloner()
+d.url = "site.com"
+d.dest = URL(fileURLWithPath: "/tmp/out")
+assert(!d.wgetArgs().contains { $0.hasPrefix("--exclude-directories") }, "no rules, no flag")
+assert(d.wgetArgs().contains("--convert-links"))
+assert(d.wgetArgs().last == "https://site.com", d.wgetArgs().last ?? "")
+
+d.excludePaths = " /blog , /admin/* "
+d.includePaths = "/docs"
+d.rejectRegex = "/tag/|\\.pdf$"
+d.rejectTypes = "zip, mp4"
+d.extraDomains = "cdn.site.com"
+d.headers = "Cookie: a=1\n\nX-Token: xyz"
+d.authUser = "dev"; d.authPass = "s3cret"
+d.quotaMB = "250"
+d.insecure = true
+d.keepLinks = true
+let a = d.wgetArgs()
+assert(a.contains("--exclude-directories=/blog,/admin/*"), a.description)
+assert(a.contains("--include-directories=/docs"))
+assert(a.contains("--reject-regex=/tag/|\\.pdf$"))
+assert(a.contains("--reject=zip,mp4"))
+assert(a.contains("--span-hosts") && a.contains("--domains=site.com,cdn.site.com"))
+assert(a.contains("--header=Cookie: a=1") && a.contains("--header=X-Token: xyz"))
+assert(a.filter { $0.hasPrefix("--header=") }.count == 2, "blank lines are not headers")
+assert(a.contains("--user=dev") && a.contains("--password=s3cret"))
+assert(a.contains("--quota=250m") && a.contains("--no-check-certificate"))
+assert(!a.contains("--convert-links"), "keepLinks must leave URLs alone")
+assert(d.activeRules == 10, "\(d.activeRules)")
+
+// images off merges with the user's own list
+d.withAssets = false
+assert(d.wgetArgs().contains { $0.hasPrefix("--reject=") && $0.contains("jpg") && $0.contains("zip") },
+       d.wgetArgs().first { $0.hasPrefix("--reject=") } ?? "none")
+
+// the pasteable command quotes what a shell would choke on and hides the password
+let line = d.commandLine(maskPassword: true)
+assert(line.hasPrefix("wget "), line)
+assert(line.contains("'--header=Cookie: a=1'"), line)
+assert(line.contains("--password=•••") && !line.contains("s3cret"), "password must not reach the log")
+assert(d.commandLine().contains("--password=s3cret"), "copying the command keeps it usable")
+
+// scan mode never writes files
+d.mode = .scan
+assert(d.wgetArgs().contains("--spider") && !d.wgetArgs().contains("--page-requisites"))
+
 print("engine checks passed")

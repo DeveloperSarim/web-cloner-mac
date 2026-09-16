@@ -35,6 +35,7 @@ It is the friendly Mac alternative to HTTrack and to typing `wget --mirror` by h
 | 🌐 **Clone website** | Downloads pages, CSS, JavaScript and images, converts links, and leaves you a site that browses offline |
 | 🔍 **Scan only** | Discovers every page on a site without downloading anything |
 | 📸 **Screenshots** | Full-page PNG of each page at 1280, 1440 or 1920 width |
+| 🧰 **Developer options** | Skip paths or URL patterns, restrict to one section, extra domains, request headers, HTTP auth, size cap, and the exact wget command to copy |
 | ♻️ **Updates itself** | Checks GitHub on launch and installs the new version in place, so you never download or delete anything by hand |
 | 🖼️ **CDN assets included** | Images, fonts and stylesheets served from another domain are downloaded too and relinked, so nothing loads from the internet |
 | 🗺️ **Sitemap generator** | Writes a standard `sitemap.xml` after every job |
@@ -97,6 +98,27 @@ Only the Xcode Command Line Tools are required (`xcode-select --install`). Full 
 | **Download images and media** | Turn off for HTML, CSS and JS only, which is far faster and smaller |
 | **Create sitemap.xml** | Writes the sitemap into your save folder |
 | **Ignore robots.txt** | Only for sites you own or are allowed to copy |
+
+### Advanced, for developers
+
+Open **Advanced** in the Options card. Every field maps straight to a `wget` flag, and empty fields add nothing.
+
+| Field | Example | Flag |
+|---|---|---|
+| Skip these paths | `/blog, /admin/*` | `--exclude-directories` |
+| Only these paths | `/docs` | `--include-directories` |
+| Skip URLs matching | `/tag/\|\.pdf$` | `--reject-regex` |
+| Skip file types | `pdf, zip, mp4` | `--reject` |
+| Also allow domains | `cdn.example.com` | `--span-hosts --domains` |
+| Stop after (MB) | `500` | `--quota` |
+| HTTP user and password | | `--user`, `--password` |
+| Extra request headers | `Cookie: session=abc123` | `--header`, one per line |
+| Keep original links | | skips `--convert-links` and leaves the HTML exactly as served |
+| Ignore SSL errors | | `--no-check-certificate` |
+
+So "clone the site but leave the blog and every PDF alone" is `/blog` in **Skip these paths** and `\.pdf$` in **Skip URLs matching**.
+
+**Copy wget command** puts the exact command on your clipboard, ready for a terminal or a script. The password is hidden in the app log but kept in the copied command.
 
 ### Where the files go
 

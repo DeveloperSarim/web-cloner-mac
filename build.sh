@@ -4,7 +4,7 @@ set -e
 cd "$(dirname "$0")"
 APP="WebCloner.app"
 MIN="13.0"
-VERSION="1.1.0"          # keep in step with the GitHub release tag, the updater compares it
+VERSION="1.2.0"          # keep in step with the GitHub release tag, the updater compares it
 
 rm -rf "$APP" build && mkdir -p build "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
