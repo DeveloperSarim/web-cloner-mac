@@ -28,8 +28,35 @@ assert(c.files == 3 && c.bytes == 2707, "\(c.files) \(c.bytes)")
 assert(c.counts[.done] == 3 && c.counts[.failed] == 1, "\(c.counts)")
 assert(c.pages[3].short == "/q?a=1&b=2", c.pages[3].short)
 assert(isAsset("https://a.com/x.PNG") && !isAsset("https://a.com/about"))
+assert(!isAsset("https://a.com/") && !isAsset("https://a.com/q?a=1&b=2"))
+// wget hands us entity-mangled URLs out of style="background-image:url(&quot;...&quot;)"
+let mangled = "https://cdn.x.com/a/Rectangle%203.jpg&quot;"
+assert(isAsset(mangled), "mangled CDN image must count as an asset, not a page")
+assert(trimTail(mangled) == "https://cdn.x.com/a/Rectangle%203.jpg", trimTail(mangled))
+// --convert-links then prefixes that mangled URL with the site host; the real one is inside
+let wrapped = "https://site.com/&quot;https://cdn.x.com/a/Rectangle%203.jpg"
+assert(unwrapURL(wrapped) == "https://cdn.x.com/a/Rectangle%203.jpg", unwrapURL(wrapped))
+assert(unwrapURL("https://cdn.x.com/a.jpg") == "https://cdn.x.com/a.jpg")
+assert(trimTail(wrapped + "&quot;") == wrapped, trimTail(wrapped + "&quot;"))
 
 c.dest = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("wc-\(UUID().uuidString)")
+
+// external assets: local layout must match what wget --force-directories writes,
+// and links back to them must be relative and percent-encoded
+c.url = "site.com"
+let asset = URL(string: "https://cdn.x.com/dir/Rectangle%203.jpg")!
+let local = c.localPath(asset)
+assert(local.path == c.dest.path + "/cdn.x.com/dir/Rectangle 3.jpg", local.path)
+let page = c.dest.appendingPathComponent("site.com/work/slate.html")
+assert(c.relativePath(from: page, to: local) == "../../cdn.x.com/dir/Rectangle%203.jpg",
+       c.relativePath(from: page, to: local))
+let root = c.dest.appendingPathComponent("site.com/index.html")
+assert(c.relativePath(from: root, to: local) == "../cdn.x.com/dir/Rectangle%203.jpg",
+       c.relativePath(from: root, to: local))
+let queried = c.localPath(URL(string: "https://cdn.x.com/f.woff2?v=2")!)
+assert(queried.lastPathComponent == "f.woff2?v=2", queried.lastPathComponent)
+assert(c.relativePath(from: root, to: queried).hasSuffix("f.woff2%3Fv=2"),
+       c.relativePath(from: root, to: queried))
 c.writeSitemap()
 let xml = try! String(contentsOf: c.dest.appendingPathComponent("sitemap.xml"), encoding: .utf8)
 assert(xml.contains("<loc>https://site.com/about</loc>"), xml)

@@ -35,6 +35,7 @@ It is the friendly Mac alternative to HTTrack and to typing `wget --mirror` by h
 | 🌐 **Clone website** | Downloads pages, CSS, JavaScript and images, converts links, and leaves you a site that browses offline |
 | 🔍 **Scan only** | Discovers every page on a site without downloading anything |
 | 📸 **Screenshots** | Full-page PNG of each page at 1280, 1440 or 1920 width |
+| 🖼️ **CDN assets included** | Images, fonts and stylesheets served from another domain are downloaded too and relinked, so nothing loads from the internet |
 | 🗺️ **Sitemap generator** | Writes a standard `sitemap.xml` after every job |
 | 📊 **Live page list** | Downloading, Done, Failed and Redirect states with sizes and click-to-filter counters |
 | ⚙️ **Automatic setup** | Installs `wget` for you through Homebrew if it is missing |
@@ -120,6 +121,12 @@ Open Web Cloner, type the address, choose **Clone** and press **Start Cloning**.
 <summary><strong>Is this an HTTrack alternative?</strong></summary>
 
 Yes. Same job, website mirroring, but with a native macOS interface, a live page list, a sitemap generator and built-in screenshots.
+</details>
+
+<details>
+<summary><strong>The site keeps its images on a CDN. Will they download?</strong></summary>
+
+Yes. Plain `wget` mirrors a single host, so anything on a CDN (Webflow, Shopify, WordPress with an asset domain) is skipped. After the mirror, Web Cloner reads the saved pages, collects every asset still pointing somewhere else, downloads it and rewrites the reference to the local copy. That includes URLs written as `url(&quot;https://cdn/image.jpg&quot;)`, which `wget` itself misreads and turns into 404s.
 </details>
 
 <details>

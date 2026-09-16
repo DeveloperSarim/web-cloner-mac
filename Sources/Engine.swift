@@ -56,8 +56,35 @@ let assetExts: Set<String> = ["jpg","jpeg","png","gif","webp","svg","ico","bmp",
                               "mp4","webm","mov","m4v","mp3","wav","ogg","css","js","mjs","json","xml",
                               "woff","woff2","ttf","otf","eot","pdf","zip","gz","txt","map"]
 
+let mediaExts: Set<String> = ["jpg","jpeg","png","gif","webp","svg","ico","bmp","tif","tiff","avif",
+                              "mp4","webm","mov","m4v","mp3","wav","ogg"]
+
+/// Strips the junk wget drags along when a URL sits inside an escaped attribute,
+/// e.g. background-image:url(&quot;https://cdn/a.jpg&quot;)
+func trimTail(_ s: String) -> String {
+    var t = s
+    let junk = ["&quot;", "&#34;", "&#039;", "&apos;", "&gt;", "&lt;", "\\", ",", ";", ":", "!", ")", "'", "\""]
+    var again = true
+    while again {
+        again = false
+        for j in junk where t.hasSuffix(j) && t.count > j.count { t.removeLast(j.count); again = true }
+    }
+    return t
+}
+
+/// --convert-links turns the bogus URL wget read out of url(&quot;https://cdn/x.jpg&quot;)
+/// into https://site.com/&quot;https://cdn/x.jpg — the real address is the last one in the string.
+func unwrapURL(_ s: String) -> String {
+    let last = s.range(of: "https://", options: .backwards) ?? s.range(of: "http://", options: .backwards)
+    guard let r = last, r.lowerBound != s.startIndex else { return s }
+    return String(s[r.lowerBound...])
+}
+
 func isAsset(_ url: String) -> Bool {
-    assetExts.contains((URL(string: url)?.pathExtension ?? "").lowercased())
+    let path = url.components(separatedBy: "?").first ?? url
+    let name = trimTail(path.components(separatedBy: "/").last ?? "")
+    guard name.contains(".") else { return false }
+    return assetExts.contains((name.components(separatedBy: ".").last ?? "").lowercased())
 }
 
 final class Cloner: ObservableObject {
@@ -96,6 +123,7 @@ final class Cloner: ObservableObject {
     private var index: [String: Int] = [:]
     private var current: String?
     private var shooter: Shooter?
+    private var externalDone = false
 
     var target: String {
         let t = url.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -119,6 +147,7 @@ final class Cloner: ObservableObject {
             append("Enter a valid address, for example example.com"); return
         }
         pages = []; index = [:]; current = nil; log = []; files = 0; bytes = 0; lastOutput = nil
+        externalDone = false
         running = true
         try? FileManager.default.createDirectory(at: dest, withIntermediateDirectories: true)
         if mode == .shot && wgetPath == nil { startShots([u.absoluteString]) } else { startWget() }
@@ -257,6 +286,10 @@ final class Cloner: ObservableObject {
             startShots(list.isEmpty ? [target] : list)
             return
         }
+        if mode == .clone && running && !externalDone {
+            externalDone = true
+            if fetchExternal() { return }
+        }
         running = false
         task = nil
         if makeSitemap && !pages.isEmpty { writeSitemap() }
@@ -308,6 +341,116 @@ final class Cloner: ObservableObject {
             }
             self.shootNext(list, i + 1, folder)
         }
+    }
+
+    // MARK: External assets
+    //
+    // wget only mirrors one host, so images, fonts and stylesheets served from a CDN are
+    // skipped. It also cannot read URLs written as url(&quot;https://cdn/x.jpg&quot;), which
+    // is what Webflow and friends emit, so those 404. Both cases are fixed here: read the
+    // downloaded pages, pull out every absolute asset URL, fetch the missing ones and point
+    // the local files at them.
+
+    static let textExts: Set<String> = ["html", "htm", "css"]
+    static let urlRE = try! NSRegularExpression(pattern: "https?://[^\\s\"'()<>\\\\]+")
+
+    struct External { let raw: String; let url: String; let local: URL }
+
+    func localPath(_ u: URL) -> URL {
+        var p = dest.appendingPathComponent(u.host ?? "external")
+        for seg in u.path.split(separator: "/") {
+            p.appendPathComponent(String(seg).removingPercentEncoding ?? String(seg))
+        }
+        if let q = u.query, !q.isEmpty {
+            p = p.deletingLastPathComponent().appendingPathComponent(p.lastPathComponent + "?" + q)
+        }
+        return p
+    }
+
+    func relativePath(from file: URL, to asset: URL) -> String {
+        let a = file.deletingLastPathComponent().standardizedFileURL.pathComponents
+        let b = asset.standardizedFileURL.pathComponents
+        var i = 0
+        while i < min(a.count, b.count), a[i] == b[i] { i += 1 }
+        let parts = Array(repeating: "..", count: a.count - i) + b[i...]
+        let joined = parts.joined(separator: "/")
+        return joined.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? joined
+    }
+
+    func textFiles() -> [URL] {
+        guard let e = FileManager.default.enumerator(at: dest, includingPropertiesForKeys: nil) else { return [] }
+        return e.compactMap { $0 as? URL }.filter { Cloner.textExts.contains($0.pathExtension.lowercased()) }
+    }
+
+    func collectExternal() -> [External] {
+        guard let host = URL(string: target)?.host else { return [] }
+        var seen = Set<String>(), out: [External] = []
+        for f in textFiles() {
+            guard let text = try? String(contentsOf: f, encoding: .utf8) else { continue }
+            let range = NSRange(text.startIndex..., in: text)
+            for m in Cloner.urlRE.matches(in: text, range: range) {
+                guard let r = Range(m.range, in: text) else { continue }
+                // the whole match is what gets replaced, so the trailing &quot; wget left
+                // behind disappears with it; the URL itself is the trimmed, unwrapped part
+                let raw = String(text[r])
+                let trimmed = trimTail(raw)
+                guard !seen.contains(raw), isAsset(trimmed) else { continue }
+                let clean = unwrapURL(trimmed).replacingOccurrences(of: "&amp;", with: "&")
+                guard let u = URL(string: clean), let h = u.host, h != host else { continue }
+                let ext = (u.pathExtension).lowercased()
+                if !withAssets && mediaExts.contains(ext) { continue }
+                seen.insert(raw)
+                out.append(External(raw: raw, url: clean, local: localPath(u)))
+            }
+        }
+        return out
+    }
+
+    /// Returns true when a download pass was started, so finish() can wait for it.
+    func fetchExternal() -> Bool {
+        let items = collectExternal()
+        guard !items.isEmpty, let wget = wgetPath else { return false }
+        let fm = FileManager.default
+        let missing = items.filter { !fm.fileExists(atPath: $0.local.path) }
+        guard !missing.isEmpty else { rewriteExternal(items); return false }
+
+        let list = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("wc-external-\(UUID().uuidString).txt")
+        guard (try? missing.map(\.url).joined(separator: "\n").write(to: list, atomically: true, encoding: .utf8)) != nil
+        else { return false }
+
+        let hosts = Set(missing.compactMap { URL(string: $0.url)?.host }).sorted()
+        status = "Fetching \(missing.count) files from other domains…"
+        append(""); append("Found \(missing.count) assets on: " + hosts.joined(separator: ", "))
+
+        var args = ["--force-directories", "--directory-prefix=\(dest.path)", "--no-clobber",
+                    "--timeout=20", "--tries=2", "--input-file=\(list.path)"] + speed.args
+        args.append("--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 " +
+                    "(KHTML, like Gecko) Version/17.0 Safari/605.1.15")
+        run(wget, args, in: nil, label: "wget") { [weak self] _ in
+            try? FileManager.default.removeItem(at: list)
+            guard let self else { return }
+            self.rewriteExternal(items)
+            self.finish(code: 0)
+        }
+        return true
+    }
+
+    func rewriteExternal(_ items: [External]) {
+        let fm = FileManager.default
+        let live = items.filter { fm.fileExists(atPath: $0.local.path) }
+        guard !live.isEmpty else { return }
+        var touched = 0
+        for f in textFiles() {
+            guard var text = try? String(contentsOf: f, encoding: .utf8) else { continue }
+            let before = text
+            for it in live where text.contains(it.raw) {
+                text = text.replacingOccurrences(of: it.raw, with: relativePath(from: f, to: it.local))
+            }
+            guard text != before else { continue }
+            if (try? text.write(to: f, atomically: true, encoding: .utf8)) != nil { touched += 1 }
+        }
+        append("Linked \(live.count) external assets into \(touched) files.")
     }
 
     // MARK: Sitemap
