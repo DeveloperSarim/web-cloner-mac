@@ -2,3 +2,4 @@ WebCloner.app/
 build/
 *.dmg
 .DS_Store
+*.zip
