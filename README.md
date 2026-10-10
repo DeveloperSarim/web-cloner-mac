@@ -1,27 +1,29 @@
 <div align="center">
 
-<img src="docs/icon.png" width="120" alt="Web Cloner icon" />
+<img src="docs/banner.png" alt="Web Cloner — save, scan or screenshot any website, from a native Mac app" width="880">
 
-# Web Cloner
+<br>
 
-**Free website downloader, site cloner and full-page screenshot tool for macOS.**
+[![Download](https://img.shields.io/badge/Download-WebCloner.dmg-15807a?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg)
+[![Website](https://img.shields.io/badge/Website-web--cloner.sarimtools.com-16292b?style=for-the-badge)](https://web-cloner.sarimtools.com/)
 
-Download any website to your Mac, generate its sitemap, or capture a screenshot of every page — from one clean native app, without touching the Terminal.
-
-**[web-cloner.sarimtools.com](https://web-cloner.sarimtools.com/)**
-
-[![Download](https://img.shields.io/badge/Download-WebCloner.dmg-147470?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg)
-[![Website](https://img.shields.io/badge/Website-web--cloner.sarimtools.com-1f2d2d?style=for-the-badge)](https://web-cloner.sarimtools.com/)
-
-[![Platform](https://img.shields.io/badge/platform-macOS%2013%2B-lightgrey?style=flat-square)](#requirements)
-[![Universal](https://img.shields.io/badge/binary-Intel%20%2B%20Apple%20Silicon-147470?style=flat-square)](#requirements)
-[![Swift](https://img.shields.io/badge/built%20with-SwiftUI-orange?style=flat-square&logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/DeveloperSarim/web-cloner-mac?style=flat-square&color=147470)](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest)
-
-<img src="docs/screenshot.png" width="820" alt="Web Cloner cloning a website on macOS, showing a live page list with per-page status" />
+[![Release](https://img.shields.io/github/v/release/DeveloperSarim/web-cloner-mac?style=flat-square&color=15807a&label=release)](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/DeveloperSarim/web-cloner-mac/total?style=flat-square&color=15807a&label=downloads)](https://github.com/DeveloperSarim/web-cloner-mac/releases)
+[![Platform](https://img.shields.io/badge/macOS-13%2B-8ba4a3?style=flat-square&logo=apple&logoColor=white)](#requirements)
+[![Universal](https://img.shields.io/badge/universal-Intel%20%2B%20Apple%20Silicon-8ba4a3?style=flat-square)](#requirements)
+[![Built with](https://img.shields.io/badge/SwiftUI-8ba4a3?style=flat-square&logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
+[![License](https://img.shields.io/badge/license-MIT-8ba4a3?style=flat-square)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/DeveloperSarim/web-cloner-mac?style=flat-square&color=d6a85c)](https://github.com/DeveloperSarim/web-cloner-mac/stargazers)
 
 </div>
+
+**Free website downloader, site cloner and full-page screenshot tool for macOS.** Download any website to your Mac, generate its sitemap, or capture a screenshot of every page, from one clean native app without touching the Terminal.
+
+```bash
+brew install --cask DeveloperSarim/tap/web-cloner
+```
+
+<img src="docs/app-dark.png" alt="Web Cloner cloning a website, with the page list filling in live and one 404 marked in red">
 
 ---
 
