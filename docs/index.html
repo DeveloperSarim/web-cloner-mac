@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Cloner — save any website to your Mac</title>
+<meta name="description" content="A native macOS app that downloads a whole website for offline reading, scans it for every page, or screenshots each one. Free, open source, Intel and Apple Silicon.">
+<link rel="canonical" href="https://developersarim.github.io/web-cloner-mac/">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="theme-color" content="#0d1a1c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f7f5" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Web Cloner — save any website to your Mac">
+<meta property="og:description" content="Download a whole website for offline reading, scan it for every page, or screenshot each one. Free and open source for macOS.">
+<meta property="og:url" content="https://developersarim.github.io/web-cloner-mac/">
+<meta property="og:image" content="https://developersarim.github.io/web-cloner-mac/app-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Web Cloner — save any website to your Mac">
+<meta name="twitter:description" content="Download a whole website for offline reading, scan it for every page, or screenshot each one. Free and open source for macOS.">
+<meta name="twitter:image" content="https://developersarim.github.io/web-cloner-mac/app-dark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  } catch (e) {}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Web Cloner",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "macOS 13.0 or later",
+  "url": "https://developersarim.github.io/web-cloner-mac/",
+  "downloadUrl": "https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg",
+  "license": "https://github.com/DeveloperSarim/web-cloner-mac/blob/main/LICENSE",
+  "description": "A native macOS app that downloads a whole website for offline reading, scans a site for every page, or captures a full-page screenshot of each one.",
+  "author": { "@type": "Person", "name": "Sarim Yaseen", "url": "https://github.com/DeveloperSarim" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<style>
+  /* ---------- theme ---------- */
+
+  :root {
+    --bg: #0c1819;
+    --bg-2: #101f21;
+    --panel: #132426;
+    --panel-2: #16292b;
+    --line: #1d3437;
+    --line-soft: #192d30;
+    --text: #e7efec;
+    --mute: #8ba4a3;
+    --dim: #627e7e;
+    --teal: #3bbdae;
+    --teal-ink: #0f6d68;
+    --teal-btn: #15807a;
+    --teal-btn-h: #1a948d;
+    --on-teal: #f1fbf9;
+    --red: #e37a66;
+    --amber: #d6a85c;
+    --glow: radial-gradient(60% 55% at 70% 18%, rgba(59, 189, 174, 0.10), transparent 70%);
+    --shadow: 0 26px 64px rgba(0, 0, 0, 0.45);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --dot-r: #d9655b; --dot-y: #d6a85c; --dot-g: #58b37b;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #f3f7f5;
+    --bg-2: #ffffff;
+    --panel: #ffffff;
+    --panel-2: #f6faf8;
+    --line: #dde8e4;
+    --line-soft: #e8f0ed;
+    --text: #0f2123;
+    --mute: #556c6c;
+    --dim: #7b9292;
+    --teal: #0f6d68;
+    --teal-ink: #0f6d68;
+    --teal-btn: #15807a;
+    --teal-btn-h: #0f6d68;
+    --on-teal: #ffffff;
+    --red: #c2503d;
+    --amber: #a3761f;
+    --glow: radial-gradient(60% 55% at 70% 18%, rgba(15, 109, 104, 0.07), transparent 70%);
+    --shadow: 0 22px 54px rgba(15, 42, 44, 0.12);
+    --shadow-sm: 0 1px 4px rgba(15, 42, 44, 0.08);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f3f7f5;
+      --bg-2: #ffffff;
+      --panel: #ffffff;
+      --panel-2: #f6faf8;
+      --line: #dde8e4;
+      --line-soft: #e8f0ed;
+      --text: #0f2123;
+      --mute: #556c6c;
+      --dim: #7b9292;
+      --teal: #0f6d68;
+      --teal-ink: #0f6d68;
+      --teal-btn: #15807a;
+      --teal-btn-h: #0f6d68;
+      --on-teal: #ffffff;
+      --red: #c2503d;
+      --amber: #a3761f;
+      --glow: radial-gradient(60% 55% at 70% 18%, rgba(15, 109, 104, 0.07), transparent 70%);
+      --shadow: 0 22px 54px rgba(15, 42, 44, 0.12);
+      --shadow-sm: 0 1px 4px rgba(15, 42, 44, 0.08);
+    }
+  }
+
+  /* ---------- base ---------- */
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Archivo, system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  svg.i { width: 1em; height: 1em; fill: currentColor; flex: none; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- top bar ---------- */
+
+  .top {
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .top .wrap { display: flex; align-items: center; gap: 26px; height: 66px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.012em; text-decoration: none; font-size: 16px; }
+  .brand img { width: 27px; height: 27px; border-radius: 7px; box-shadow: var(--shadow-sm); }
+  .top nav { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .top nav .link { color: var(--mute); text-decoration: none; font-size: 14.5px; padding: 6px 10px; border-radius: 7px; }
+  .top nav .link:hover { color: var(--text); background: var(--panel-2); }
+
+  .icon-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--panel);
+    color: var(--mute); cursor: pointer; font-size: 15px; padding: 0;
+  }
+  .icon-btn:hover { color: var(--text); border-color: var(--dim); }
+  .icon-btn .moon { display: none; }
+  :root[data-theme="light"] .icon-btn .moon { display: block; }
+  :root[data-theme="light"] .icon-btn .sun { display: none; }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) .icon-btn .moon { display: block; }
+    :root:not([data-theme="dark"]) .icon-btn .sun { display: none; }
+  }
+
+  .star {
+    display: inline-flex; align-items: stretch;
+    border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
+    text-decoration: none; font-size: 14px; background: var(--panel);
+  }
+  .star span { display: flex; align-items: center; gap: 7px; padding: 0 11px; height: 34px; color: var(--mute); }
+  .star .num { border-left: 1px solid var(--line); font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--text); min-width: 42px; justify-content: center; }
+  .star:hover { border-color: var(--dim); }
+  .star:hover span { color: var(--text); }
+  .star:hover .i.sstar { color: var(--amber); }
+
+  @media (max-width: 880px) { .top nav .link { display: none; } }
+
+  /* ---------- buttons ---------- */
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 11px 19px; border-radius: 9px;
+    font-size: 15px; font-weight: 500; text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.16s ease, border-color 0.16s ease;
+  }
+  .btn-main { background: var(--teal-btn); color: var(--on-teal); box-shadow: var(--shadow-sm); }
+  .btn-main:hover { background: var(--teal-btn-h); }
+  .btn-ghost { border-color: var(--line); color: var(--text); background: var(--panel); }
+  .btn-ghost:hover { border-color: var(--dim); }
+  .btn-lg { padding: 14px 25px; font-size: 16.5px; border-radius: 10px; }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 5px; }
+
+  /* ---------- hero ---------- */
+
+  .hero { padding: 96px 0 80px; background: var(--glow); }
+  .hero .wrap { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 64px; align-items: center; }
+  h1 {
+    font-size: clamp(38px, 5.2vw, 60px);
+    line-height: 1.03; letter-spacing: -0.034em; font-weight: 700;
+    margin: 0 0 20px;
+  }
+  .lede { font-size: 18.5px; color: var(--mute); margin: 0 0 32px; max-width: 34ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .specs { margin-top: 26px; font-size: 13.5px; color: var(--dim); font-family: "IBM Plex Mono", monospace; line-height: 1.9; }
+  .specs b { color: var(--mute); font-weight: 500; }
+
+  /* ---------- app panel ---------- */
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .panel-bar {
+    display: flex; align-items: center; gap: 13px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel-2);
+  }
+  .dots { display: flex; gap: 7px; }
+  .dots i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .dots i:nth-child(1) { background: var(--dot-r); }
+  .dots i:nth-child(2) { background: var(--dot-y); }
+  .dots i:nth-child(3) { background: var(--dot-g); }
+  .panel-bar .what { font-size: 13px; color: var(--mute); font-family: "IBM Plex Mono", monospace; }
+  .panel-bar .count { margin-left: auto; font-size: 12.5px; color: var(--dim); font-family: "IBM Plex Mono", monospace; }
+
+  .rows { padding: 7px 0 5px; }
+  .row {
+    display: grid; grid-template-columns: 15px 1fr auto;
+    align-items: center; gap: 11px;
+    padding: 6px 17px;
+    font-family: "IBM Plex Mono", monospace; font-size: 13.5px;
+    opacity: 0; transform: translateY(5px);
+  }
+  .row.in { opacity: 1; transform: none; transition: opacity 0.34s ease, transform 0.34s ease; }
+  .row .i { color: var(--teal); font-size: 13px; }
+  .row .path { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .size { color: var(--dim); font-size: 12.5px; }
+  .row.asset .path { color: var(--mute); }
+  .row.fail .i { color: var(--red); }
+  .row.fail .size { color: var(--red); }
+  .panel-foot {
+    border-top: 1px solid var(--line); padding: 12px 17px;
+    font-family: "IBM Plex Mono", monospace; font-size: 13px;
+    color: var(--teal); opacity: 0;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .panel-foot.in { opacity: 1; transition: opacity 0.4s ease; }
+  @media (prefers-reduced-motion: reduce) {
+    .row, .panel-foot { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- sections ---------- */
+
+  section { border-top: 1px solid var(--line); padding: 86px 0; scroll-margin-top: 66px; }
+  h2 { font-size: clamp(25px, 3vw, 33px); letter-spacing: -0.024em; line-height: 1.14; font-weight: 600; margin: 0 0 14px; }
+  .section-lede { color: var(--mute); max-width: 56ch; margin: 0 0 44px; font-size: 17px; }
+
+  /* jobs */
+
+  .job { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 52px; padding: 32px 0; border-top: 1px solid var(--line-soft); align-items: start; }
+  .job:first-of-type { border-top: none; }
+  .job h3 { font-size: 20px; margin: 0 0 8px; font-weight: 600; letter-spacing: -0.016em; display: flex; align-items: center; gap: 10px; }
+  .job h3 .i { color: var(--teal); font-size: 17px; }
+  .job p { margin: 0; color: var(--mute); font-size: 15.5px; max-width: 38ch; }
+  .sample {
+    font-family: "IBM Plex Mono", monospace; font-size: 13px; line-height: 1.95;
+    color: var(--mute); background: var(--panel); border: 1px solid var(--line);
+    border-radius: 10px; padding: 17px 19px; overflow-x: auto;
+  }
+  .sample b { color: var(--text); font-weight: 500; }
+  .sample .c { color: var(--teal); }
+  .sample .r { color: var(--red); }
+
+  /* compare */
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+  .compare figure { margin: 0; }
+  .compare figcaption { font-size: 14px; color: var(--mute); margin-bottom: 11px; display: flex; align-items: center; gap: 8px; }
+  .compare figcaption .i { font-size: 14px; color: var(--red); }
+  .compare figure.good figcaption .i { color: var(--teal); }
+
+  /* table */
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 330px; }
+  th, td { text-align: left; padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-weight: 500; color: var(--dim); font-size: 13.5px; }
+  td.flag { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--teal); white-space: nowrap; }
+  td:first-child { color: var(--text); white-space: nowrap; }
+  td.says { color: var(--mute); }
+  @media (max-width: 760px) { td.says, th.says { display: none; } }
+
+  .command {
+    margin-top: 30px; font-family: "IBM Plex Mono", monospace; font-size: 13px;
+    color: var(--mute); background: var(--panel); border: 1px solid var(--line);
+    border-radius: 10px; padding: 17px 19px; overflow-x: auto; white-space: pre;
+  }
+  .command .c { color: var(--teal); }
+
+  /* steps */
+
+  ol.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; max-width: 62ch; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid var(--line-soft); }
+  ol.steps li:first-child { border-top: none; }
+  ol.steps li::before { content: counter(s); font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--teal); padding-top: 3px; }
+  ol.steps h3 { margin: 0 0 4px; font-size: 17px; font-weight: 600; }
+  ol.steps p { margin: 0; color: var(--mute); font-size: 15.5px; }
+  code {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.88em;
+    background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 5px; padding: 1px 6px; color: var(--text);
+  }
+
+  /* shot */
+
+  .shot { margin: 46px 0 0; }
+  .shot img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 13px; box-shadow: var(--shadow); }
+  .shot figcaption { margin-top: 15px; color: var(--dim); font-size: 14px; }
+
+  /* faq */
+
+  details { border-top: 1px solid var(--line-soft); padding: 17px 0; max-width: 72ch; }
+  details:first-of-type { border-top: none; }
+  summary { cursor: pointer; font-size: 16.5px; font-weight: 500; list-style: none; display: flex; align-items: center; gap: 12px; }
+  summary::-webkit-details-marker { display: none; }
+  summary .i { color: var(--teal); font-size: 13px; transition: transform 0.2s ease; }
+  details[open] summary .i { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: reduce) { summary .i { transition: none; } }
+  details p { color: var(--mute); margin: 11px 0 0 25px; font-size: 15.5px; }
+
+  /* close */
+
+  .close { text-align: center; padding: 100px 0; border-top: 1px solid var(--line); background: var(--glow); }
+  .close img.mark { width: 62px; height: 62px; border-radius: 15px; box-shadow: var(--shadow); margin-bottom: 26px; }
+  .close h2 { margin-bottom: 10px; }
+  .close p { color: var(--mute); margin: 0 auto 32px; max-width: 46ch; }
+  .close .actions { justify-content: center; }
+
+  footer { border-top: 1px solid var(--line); padding: 34px 0 58px; color: var(--dim); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 18px 32px; align-items: center; }
+  footer a { color: var(--mute); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+  footer .right { margin-left: auto; display: flex; gap: 24px; align-items: center; }
+
+  @media (max-width: 900px) {
+    .hero { padding: 66px 0 58px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 44px; }
+    .lede { max-width: none; }
+    .job { grid-template-columns: 1fr; gap: 20px; }
+    .compare { grid-template-columns: 1fr; }
+    section { padding: 66px 0; }
+  }
+</style>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></symbol>
+  <symbol id="apple" viewBox="0 0 16 16"><path d="M11.18 8.5c-.02-1.72 1.4-2.55 1.47-2.59-.8-1.17-2.05-1.33-2.5-1.35-1.06-.11-2.07.62-2.61.62-.54 0-1.37-.61-2.25-.59-1.16.02-2.23.67-2.82 1.71-1.2 2.09-.31 5.18.86 6.87.57.83 1.26 1.76 2.16 1.73.87-.04 1.2-.56 2.25-.56s1.35.56 2.27.54c.94-.02 1.53-.84 2.1-1.68.66-.96.94-1.9.95-1.95-.02-.01-1.82-.7-1.84-2.75ZM9.46 3.4c.48-.58.8-1.38.71-2.18-.69.03-1.52.46-2.01 1.03-.44.51-.83 1.33-.73 2.11.77.06 1.55-.39 2.03-.96Z"/></symbol>
+  <symbol id="star" viewBox="0 0 16 16"><path d="M8 .9l2.1 4.56 4.98.58-3.69 3.39.99 4.92L8 11.9l-4.38 2.45.99-4.92L.92 6.04l4.98-.58L8 .9Z"/></symbol>
+  <symbol id="sun" viewBox="0 0 16 16"><path d="M8 11.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm0-8.1a.7.7 0 0 1-.7-.7V.9a.7.7 0 0 1 1.4 0v1.5a.7.7 0 0 1-.7.7Zm0 11.3a.7.7 0 0 1 .7.7v1.5a.7.7 0 0 1-1.4 0v-1.5a.7.7 0 0 1 .7-.7Zm7.1-6.4a.7.7 0 0 1-.7.7h-1.5a.7.7 0 0 1 0-1.4h1.5a.7.7 0 0 1 .7.7ZM3.1 8a.7.7 0 0 1-.7.7H.9a.7.7 0 0 1 0-1.4h1.5a.7.7 0 0 1 .7.7Zm9.9-4.3-1.1 1.1a.7.7 0 0 1-1-1l1.1-1.1a.7.7 0 0 1 1 1ZM4.1 11.9l-1.1 1.1a.7.7 0 0 1-1-1l1.1-1.1a.7.7 0 1 1 1 1Zm8.9 1.1-1.1-1.1a.7.7 0 1 1 1-1l1.1 1.1a.7.7 0 0 1-1 1ZM3 3.7 4.1 4.8a.7.7 0 0 1-1 1L2 4.7a.7.7 0 0 1 1-1Z"/></symbol>
+  <symbol id="moon" viewBox="0 0 16 16"><path d="M13.7 9.9A6.1 6.1 0 0 1 6.1 2.3a.7.7 0 0 0-.9-.9A6.9 6.9 0 1 0 14.6 10.8a.7.7 0 0 0-.9-.9Z"/></symbol>
+  <symbol id="check" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.9 5.9-4.6 5.2a.8.8 0 0 1-1.1.05L3.9 9a.8.8 0 1 1 1.05-1.2l1.7 1.5 4.05-4.6a.8.8 0 1 1 1.2 1.05Z"/></symbol>
+  <symbol id="x" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3 10a.75.75 0 1 1-1.06 1.06L8 9.06l-1.94 2A.75.75 0 1 1 5 10l2-1.94L5 6.06A.75.75 0 1 1 6.06 5L8 7l1.94-2A.75.75 0 0 1 11 6.06L9.06 8 11 10Z"/></symbol>
+  <symbol id="copy" viewBox="0 0 16 16"><path d="M10.5 0H3a2 2 0 0 0-2 2v8.5a.75.75 0 0 0 1.5 0V2a.5.5 0 0 1 .5-.5h7.5a.75.75 0 0 0 0-1.5Zm2.5 3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm.5 11a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v9Z"/></symbol>
+  <symbol id="search" viewBox="0 0 16 16"><path d="M11.2 10.1a6 6 0 1 0-1.1 1.1l3.3 3.3a.8.8 0 0 0 1.1-1.1l-3.3-3.3ZM2.5 6.5a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z"/></symbol>
+  <symbol id="camera" viewBox="0 0 16 16"><path d="M13.5 3H11l-.6-1.2a1 1 0 0 0-.9-.55H6.5a1 1 0 0 0-.9.55L5 3H2.5A1.5 1.5 0 0 0 1 4.5v8A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 13.5 3ZM8 11.75A3.25 3.25 0 1 1 8 5.25a3.25 3.25 0 0 1 0 6.5Zm0-1.5a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5Z"/></symbol>
+  <symbol id="caret" viewBox="0 0 16 16"><path d="M5.5 2.5 11 8l-5.5 5.5V2.5Z"/></symbol>
+  <symbol id="dl" viewBox="0 0 16 16"><path d="M8 1a.8.8 0 0 1 .8.8v7.5l2.4-2.4a.8.8 0 1 1 1.1 1.1l-3.75 3.75a.8.8 0 0 1-1.1 0L2.7 8a.8.8 0 1 1 1.1-1.1l2.4 2.4V1.8A.8.8 0 0 1 8 1ZM2 13.4a.8.8 0 0 1 .8-.8h10.4a.8.8 0 0 1 0 1.6H2.8a.8.8 0 0 1-.8-.8Z"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="icon.png" alt=""> Web Cloner</a>
+    <nav>
+      <a class="link" href="#jobs">What it does</a>
+      <a class="link" href="#developers">For developers</a>
+      <a class="link" href="#install">Install</a>
+      <a class="star" href="https://github.com/DeveloperSarim/web-cloner-mac" aria-label="Star Web Cloner on GitHub">
+        <span><svg class="i sstar"><use href="#star"/></svg> Star</span>
+        <span class="num" id="stars">—</span>
+      </a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch colour theme">
+        <svg class="i sun"><use href="#sun"/></svg>
+        <svg class="i moon"><use href="#moon"/></svg>
+      </button>
+      <a class="btn btn-main" href="https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg">
+        <svg class="i"><use href="#dl"/></svg> Download
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Keep the whole website, not a pile of tabs.</h1>
+      <p class="lede">Web Cloner copies a site to your Mac so it opens offline, links and images included. Point it at an address and watch every page land.</p>
+      <div class="actions">
+        <a class="btn btn-main btn-lg" href="https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg">
+          <svg class="i"><use href="#apple"/></svg> <span id="dl-label">Download for macOS</span>
+        </a>
+        <a class="btn btn-ghost btn-lg" href="https://github.com/DeveloperSarim/web-cloner-mac">
+          <svg class="i"><use href="#gh"/></svg> View the source
+        </a>
+      </div>
+      <p class="specs">Version <b id="ver">1.2.0</b>, free and MIT licensed<br>macOS 13 and later, Intel and Apple Silicon</p>
+    </div>
+
+    <div class="panel" aria-hidden="true">
+      <div class="panel-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="what">cloning example.studio</span>
+        <span class="count">9 pages, 1.2 MB</span>
+      </div>
+      <div class="rows" id="rows">
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/</span><span class="size">12 KB</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/about</span><span class="size">18 KB</span></div>
+        <div class="row asset"><svg class="i"><use href="#check"/></svg><span class="path">/assets/site.css</span><span class="size">74 KB</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/work</span><span class="size">17 KB</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/work/slate</span><span class="size">20 KB</span></div>
+        <div class="row asset"><svg class="i"><use href="#check"/></svg><span class="path">cdn.example.net/hero.jpg</span><span class="size">268 KB</span></div>
+        <div class="row fail"><svg class="i"><use href="#x"/></svg><span class="path">/legacy/mailing-list</span><span class="size">404 Not Found</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/work/vertex</span><span class="size">20 KB</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/journal/why-offline</span><span class="size">31 KB</span></div>
+        <div class="row asset"><svg class="i"><use href="#check"/></svg><span class="path">/assets/type/plex.woff2</span><span class="size">41 KB</span></div>
+      </div>
+      <div class="panel-foot" id="foot"><svg class="i"><use href="#check"/></svg> Done. Open index.html with the internet off.</div>
+    </div>
+  </div>
+</div>
+
+<section id="jobs">
+  <div class="wrap">
+    <h2>Three jobs, one window</h2>
+    <p class="section-lede">Pick what you want from a site. The pages arrive in a list as they finish, with sizes and failures in plain sight.</p>
+
+    <div class="job">
+      <div>
+        <h3><svg class="i"><use href="#copy"/></svg> Clone</h3>
+        <p>Pages, stylesheets, scripts and images, with every link rewritten to the local copy.</p>
+      </div>
+      <div class="sample">example.studio/<br>
+        ├── <b>index.html</b><br>
+        ├── about.html<br>
+        ├── work/slate.html<br>
+        └── assets/<span class="c">site.css, hero.jpg, plex.woff2</span></div>
+    </div>
+
+    <div class="job">
+      <div>
+        <h3><svg class="i"><use href="#search"/></svg> Scan</h3>
+        <p>Walks the site without saving a byte and tells you what is there, including the links that are broken.</p>
+      </div>
+      <div class="sample">&lt;urlset&gt;<br>
+        &nbsp;&nbsp;&lt;url&gt;&lt;loc&gt;<span class="c">https://example.studio/</span>&lt;/loc&gt;&lt;/url&gt;<br>
+        &nbsp;&nbsp;&lt;url&gt;&lt;loc&gt;<span class="c">https://example.studio/about</span>&lt;/loc&gt;&lt;/url&gt;<br>
+        &nbsp;&nbsp;<span class="r">404 /legacy/mailing-list</span><br>
+        &lt;/urlset&gt;</div>
+    </div>
+
+    <div class="job">
+      <div>
+        <h3><svg class="i"><use href="#camera"/></svg> Screenshot</h3>
+        <p>A full-page PNG of every page it finds, rendered in a real browser engine at the width you choose.</p>
+      </div>
+      <div class="sample">screenshots/<br>
+        ├── example.studio-home.png &nbsp;<span class="c">1440 × 5120</span><br>
+        ├── example.studio-about.png <span class="c">1440 × 3860</span><br>
+        └── example.studio-work.png &nbsp;<span class="c">1440 × 4400</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The images other cloners leave behind</h2>
+    <p class="section-lede">Most sites serve their pictures and fonts from a separate domain, and some write them in a way plain <code>wget</code> reads as a broken path. Web Cloner finishes the job: it reads the saved pages, fetches what is still missing and points every reference at the local file.</p>
+    <div class="compare">
+      <figure>
+        <figcaption><svg class="i"><use href="#x"/></svg> What a plain mirror saves</figcaption>
+        <div class="sample">11 files, 221 KB<br>
+          <span class="r">404</span> cdn.example.net/hero.jpg<br>
+          <span class="r">404</span> cdn.example.net/team.jpg<br>
+          background-image: <span class="r">url("https://cdn…")</span></div>
+      </figure>
+      <figure class="good">
+        <figcaption><svg class="i"><use href="#check"/></svg> What Web Cloner saves</figcaption>
+        <div class="sample">30 files, 1.0 MB<br>
+          <span class="c">ok</span> cdn.example.net/hero.jpg<br>
+          <span class="c">ok</span> cdn.example.net/team.jpg<br>
+          background-image: <span class="c">url(../cdn.example.net/hero.jpg)</span></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="developers">
+  <div class="wrap">
+    <h2>Say exactly what to leave out</h2>
+    <p class="section-lede">Open Advanced and the app stops guessing. Skip a section, drop every PDF, carry a session cookie, cap the download. Each field is one <code>wget</code> flag, and an empty field changes nothing.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Field</th><th class="says">What it means</th><th>Flag</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Skip these paths</td><td class="says">Leave out /blog and /admin</td><td class="flag">--exclude-directories</td></tr>
+        <tr><td>Only these paths</td><td class="says">Clone one section, nothing else</td><td class="flag">--include-directories</td></tr>
+        <tr><td>Skip URLs matching</td><td class="says">A regular expression, tested against the full URL</td><td class="flag">--reject-regex</td></tr>
+        <tr><td>Skip file types</td><td class="says">pdf, zip, mp4</td><td class="flag">--reject</td></tr>
+        <tr><td>Also allow domains</td><td class="says">Crawl an extra asset domain alongside the site</td><td class="flag">--span-hosts</td></tr>
+        <tr><td>Stop after</td><td class="says">A hard cap in megabytes</td><td class="flag">--quota</td></tr>
+        <tr><td>Extra headers</td><td class="says">One per line, for a logged-in copy</td><td class="flag">--header</td></tr>
+        <tr><td>HTTP user and password</td><td class="says">Basic auth</td><td class="flag">--user, --password</td></tr>
+        <tr><td>Keep original links</td><td class="says">Leaves the HTML exactly as served</td><td class="flag">drops --convert-links</td></tr>
+        <tr><td>Ignore SSL errors</td><td class="says">For a staging box with a bad certificate</td><td class="flag">--no-check-certificate</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="command"><span class="c">Copy wget command</span> hands you the exact run, ready for a script:
+
+wget --recursive --level=inf --no-parent --convert-links --page-requisites \
+     --exclude-directories=/blog --reject-regex='\.pdf$' --quota=500m \
+     --directory-prefix=/Users/you/Downloads/WebCloner https://example.studio</div>
+
+    <figure class="shot">
+      <img src="app-dark.png" width="1800" height="1456" alt="Web Cloner cloning a site, with the page list filling in and one 404 marked in red" loading="lazy">
+      <figcaption>Every page, its size, and anything that failed. The log tab keeps the raw output.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Running in a minute</h2>
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>Open the disk image</h3>
+          <p>Drag Web Cloner onto Applications. If macOS blocks the first launch, right-click the app and choose Open.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Let it fetch wget</h3>
+          <p>The app runs on <code>wget</code>. If you do not have it, a Setup card installs it for you through Homebrew.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Forget about updates</h3>
+          <p>Every launch it checks this repository for a new release and offers to replace itself. Nothing to download, nothing to delete.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Questions people ask</h2>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Is it really free?</summary>
+      <p>Yes. MIT licensed, no account, no telemetry, no paid tier. The whole source is on GitHub and you can build it yourself with the Xcode command line tools.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Does it work on JavaScript-heavy sites?</summary>
+      <p><code>wget</code> does not run JavaScript, so a site that renders entirely in the browser gives you its shell. Use the Screenshot job for those: it renders each page in WebKit, the same engine as Safari.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Will it get me blocked?</summary>
+      <p>Set Speed to Polite and the app waits between requests and caps its rate. Robots rules are respected unless you turn that off yourself, which you should only do on sites you own or have permission to copy.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Intel or Apple Silicon?</summary>
+      <p>Both. One universal build, native on each, no Rosetta.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Is this an HTTrack alternative?</summary>
+      <p>Same job, different shape. Native macOS window, a live page list instead of a log to decode, a sitemap after every run, screenshots built in, and the CDN repair pass that keeps offline copies from losing their images.</p>
+    </details>
+  </div>
+</section>
+
+<div class="close">
+  <div class="wrap">
+    <img class="mark" src="icon.png" alt="">
+    <h2>Take a copy while it is still up</h2>
+    <p>Sites disappear. A clone on your own disk does not.</p>
+    <div class="actions">
+      <a class="btn btn-main btn-lg" href="https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg">
+        <svg class="i"><use href="#apple"/></svg> <span id="dl-label-2">Download Web Cloner 1.2.0</span>
+      </a>
+      <a class="btn btn-ghost btn-lg" href="https://github.com/DeveloperSarim/web-cloner-mac">
+        <svg class="i"><use href="#star"/></svg> Star on GitHub
+      </a>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>MIT licensed. Built by <a href="https://github.com/DeveloperSarim">Sarim Yaseen</a>.</span>
+    <span class="right">
+      <a href="https://github.com/DeveloperSarim/web-cloner-mac"><svg class="i"><use href="#gh"/></svg> Source</a>
+      <a href="https://github.com/DeveloperSarim/web-cloner-mac/releases">Releases</a>
+      <a href="https://github.com/DeveloperSarim/web-cloner-mac/issues">Report a bug</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  // the page list fills in once, the way it does in the app
+  (function () {
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.row'));
+    var foot = document.getElementById('foot');
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still) {
+      rows.forEach(function (r) { r.classList.add('in'); });
+      foot.classList.add('in');
+      return;
+    }
+    rows.forEach(function (r, i) {
+      setTimeout(function () { r.classList.add('in'); }, 260 + i * 115);
+    });
+    setTimeout(function () { foot.classList.add('in'); }, 260 + rows.length * 115 + 180);
+  })();
+
+  // theme, remembered per browser
+  (function () {
+    var btn = document.getElementById('theme');
+    var root = document.documentElement;
+    btn.addEventListener('click', function () {
+      var dark = root.getAttribute('data-theme')
+        ? root.getAttribute('data-theme') === 'dark'
+        : !window.matchMedia('(prefers-color-scheme: light)').matches;
+      var next = dark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+
+  // live numbers from GitHub, with the page's own text as the fallback
+  (function () {
+    var repo = 'DeveloperSarim/web-cloner-mac';
+
+    fetch('https://api.github.com/repos/' + repo)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (d && typeof d.stargazers_count === 'number') {
+          document.getElementById('stars').textContent = d.stargazers_count;
+        }
+      })
+      .catch(function () {});
+
+    fetch('https://api.github.com/repos/' + repo + '/releases/latest')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.tag_name) return;
+        var v = d.tag_name.replace(/^v/, '');
+        document.getElementById('ver').textContent = v;
+        document.getElementById('dl-label-2').textContent = 'Download Web Cloner ' + v;
+      })
+      .catch(function () {});
+  })();
+</script>
+
+</body>
+</html>
