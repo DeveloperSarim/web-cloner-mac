@@ -8,10 +8,10 @@
 
 Download any website to your Mac, generate its sitemap, or capture a screenshot of every page — from one clean native app, without touching the Terminal.
 
-**[developersarim.github.io/web-cloner-mac](https://developersarim.github.io/web-cloner-mac/)**
+**[web-cloner.sarimtools.com](https://web-cloner.sarimtools.com/)**
 
 [![Download](https://img.shields.io/badge/Download-WebCloner.dmg-147470?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg)
-[![Website](https://img.shields.io/badge/Website-web--cloner-1f2d2d?style=for-the-badge)](https://developersarim.github.io/web-cloner-mac/)
+[![Website](https://img.shields.io/badge/Website-web--cloner.sarimtools.com-1f2d2d?style=for-the-badge)](https://web-cloner.sarimtools.com/)
 
 [![Platform](https://img.shields.io/badge/platform-macOS%2013%2B-lightgrey?style=flat-square)](#requirements)
 [![Universal](https://img.shields.io/badge/binary-Intel%20%2B%20Apple%20Silicon-147470?style=flat-square)](#requirements)
