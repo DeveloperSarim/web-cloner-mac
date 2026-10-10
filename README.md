@@ -56,7 +56,15 @@ It is the friendly Mac alternative to HTTrack and to typing `wget --mirror` by h
 2. Open the DMG and drag **Web Cloner** onto the **Applications** folder
 3. Launch it. The first time macOS blocks it, use **right-click → Open → Open**
 
-### 2. wget
+### 2. Or with Homebrew
+
+```bash
+brew install --cask DeveloperSarim/tap/web-cloner
+```
+
+That pulls `wget` in with it. macOS quarantines any downloaded app, and this one is ad-hoc signed rather than notarized, so either add `--no-quarantine` to the command or open it the first time with right-click → Open.
+
+### 3. wget
 
 The app needs `wget`. If it is missing, a **Setup** card appears:
 
@@ -69,7 +77,7 @@ To do it yourself:
 brew install wget
 ```
 
-### 3. Updates
+### Updates
 
 There is nothing to do. On launch the app asks GitHub for the newest release and, if there is one, shows a bar at the top with **Update Now**. Pressing it downloads the DMG, swaps the app in place and reopens it, keeping your settings and your existing downloads. You can also trigger it from **Web Cloner → Check for Updates…**.
 
@@ -190,7 +198,15 @@ Tests/update/main.swift  # real release download and app swap
 build.sh                 # universal build and DMG
 ```
 
-Releasing a new version: bump `VERSION` in `build.sh`, run it, then publish a GitHub release whose tag is the same number (`v1.1.0`) with `WebCloner.dmg` attached. Every installed copy picks it up on next launch.
+Releasing a new version:
+
+1. Bump `VERSION` in `build.sh` and run it.
+2. Publish a GitHub release tagged with the same number (`v1.2.0`) and attach `WebCloner.dmg`. Installed copies pick it up on next launch.
+3. Update the Homebrew cask in [DeveloperSarim/homebrew-tap](https://github.com/DeveloperSarim/homebrew-tap) with the new version and checksum:
+
+```bash
+shasum -a 256 WebCloner.dmg
+```
 
 Run the tests:
 
