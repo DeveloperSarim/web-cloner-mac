@@ -1,0 +1,22 @@
+# Web Cloner
+
+> A native macOS app that downloads a whole website for offline reading, scans a site for every page, or captures a full-page screenshot of each one. Free and open source under the MIT licence, a universal binary for Intel and Apple Silicon, macOS 13 or later.
+
+Web Cloner drives wget from a SwiftUI window. After a mirror it runs a repair pass that downloads assets served from other domains and relinks them, so an offline copy keeps its images. Current version 1.2.0.
+
+## Pages
+
+- [Home](https://web-cloner.sarimtools.com/): A native macOS app that downloads a whole website for offline reading, scans it for every page, or captures a full-page screenshot of each one. Free and open source.
+- [Features](https://web-cloner.sarimtools.com/features/): Clone a site for offline reading, scan it for every page, or screenshot each one. Sitemaps, CDN images, a live page list and the wget flags behind them.
+- [Download](https://web-cloner.sarimtools.com/download/): Download the free Web Cloner disk image or install it with Homebrew. macOS 13 and later, universal for Intel and Apple Silicon, MIT licensed.
+- [Guide](https://web-cloner.sarimtools.com/guide/): A step by step guide to saving a complete website on macOS, from installing the app to opening the copy with the network switched off.
+- [Developers](https://web-cloner.sarimtools.com/developers/): Every advanced field in Web Cloner and the wget flag it maps to: skip paths, URL patterns, file types, extra domains, size caps and the command it builds.
+- [FAQ](https://web-cloner.sarimtools.com/faq/): Answers about offline copies, JavaScript-heavy sites, file sizes, licensing, updates and what Web Cloner can and cannot save.
+- [HTTrack alternative](https://web-cloner.sarimtools.com/httrack-alternative/): Looking for HTTrack on macOS? Web Cloner is a native Mac app that mirrors websites, with a live page list, sitemaps and full-page screenshots.
+
+## Project
+
+- [Source code](https://github.com/DeveloperSarim/web-cloner-mac): Swift source, build script and tests
+- [Releases](https://github.com/DeveloperSarim/web-cloner-mac/releases): every version with its disk image
+- [Homebrew tap](https://github.com/DeveloperSarim/homebrew-tap): brew install --cask DeveloperSarim/tap/web-cloner
+- [Full text](https://web-cloner.sarimtools.com/llms-full.txt): every page of this site as plain text

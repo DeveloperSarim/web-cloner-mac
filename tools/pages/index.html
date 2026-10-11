@@ -1,0 +1,140 @@
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Keep the whole website, not a pile of tabs.</h1>
+      <p class="lede">Web Cloner copies a site to your Mac so it opens offline, links and images included. Point it at an address and watch every page land.</p>
+      <div class="actions">
+        <a class="btn btn-main btn-lg" href="/download/">
+          <svg class="i"><use href="#apple"/></svg> Download for macOS
+        </a>
+        <a class="btn btn-ghost btn-lg" href="REPO">
+          <svg class="i"><use href="#gh"/></svg> View the source
+        </a>
+      </div>
+      <p class="specs">Version <b data-version="%s">VERSION</b>, free and MIT licensed<br>macOS 13 and later, Intel and Apple Silicon</p>
+    </div>
+
+    <div class="panel" aria-hidden="true">
+      <div class="panel-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="what">cloning example.studio</span>
+        <span class="count">9 pages, 1.2 MB</span>
+      </div>
+      <div class="rows" id="rows">
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/</span><span class="size">12 KB</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/about</span><span class="size">18 KB</span></div>
+        <div class="row asset"><svg class="i"><use href="#check"/></svg><span class="path">/assets/site.css</span><span class="size">74 KB</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/work</span><span class="size">17 KB</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/work/slate</span><span class="size">20 KB</span></div>
+        <div class="row asset"><svg class="i"><use href="#check"/></svg><span class="path">cdn.example.net/hero.jpg</span><span class="size">268 KB</span></div>
+        <div class="row fail"><svg class="i"><use href="#x"/></svg><span class="path">/legacy/mailing-list</span><span class="size">404 Not Found</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/work/vertex</span><span class="size">20 KB</span></div>
+        <div class="row"><svg class="i"><use href="#check"/></svg><span class="path">/journal/why-offline</span><span class="size">31 KB</span></div>
+        <div class="row asset"><svg class="i"><use href="#check"/></svg><span class="path">/assets/type/plex.woff2</span><span class="size">41 KB</span></div>
+      </div>
+      <div class="panel-foot" id="foot"><svg class="i"><use href="#check"/></svg> Done. Open index.html with the internet off.</div>
+    </div>
+  </div>
+</div>
+
+<section id="jobs">
+  <div class="wrap">
+    <h2>Three jobs, one window</h2>
+    <p class="section-lede">Pick what you want from a site. The pages arrive in a list as they finish, with sizes and failures in plain sight.</p>
+
+    <div class="job">
+      <div>
+        <h3><svg class="i"><use href="#copy"/></svg> Clone</h3>
+        <p>Pages, stylesheets, scripts and images, with every link rewritten to the local copy.</p>
+      </div>
+      <div class="sample">example.studio/<br>
+        ├── <b>index.html</b><br>
+        ├── about.html<br>
+        ├── work/slate.html<br>
+        └── assets/<span class="c">site.css, hero.jpg, plex.woff2</span></div>
+    </div>
+
+    <div class="job">
+      <div>
+        <h3><svg class="i"><use href="#search"/></svg> Scan</h3>
+        <p>Walks the site without saving a byte and tells you what is there, including the links that are broken.</p>
+      </div>
+      <div class="sample">&lt;urlset&gt;<br>
+        &nbsp;&nbsp;&lt;url&gt;&lt;loc&gt;<span class="c">https://example.studio/</span>&lt;/loc&gt;&lt;/url&gt;<br>
+        &nbsp;&nbsp;&lt;url&gt;&lt;loc&gt;<span class="c">https://example.studio/about</span>&lt;/loc&gt;&lt;/url&gt;<br>
+        &nbsp;&nbsp;<span class="r">404 /legacy/mailing-list</span><br>
+        &lt;/urlset&gt;</div>
+    </div>
+
+    <div class="job">
+      <div>
+        <h3><svg class="i"><use href="#camera"/></svg> Screenshot</h3>
+        <p>A full-page PNG of every page it finds, rendered in a real browser engine at the width you choose.</p>
+      </div>
+      <div class="sample">screenshots/<br>
+        ├── example.studio-home.png &nbsp;<span class="c">1440 × 5120</span><br>
+        ├── example.studio-about.png <span class="c">1440 × 3860</span><br>
+        └── example.studio-work.png &nbsp;<span class="c">1440 × 4400</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The images other cloners leave behind</h2>
+    <p class="section-lede">Most sites serve their pictures and fonts from a separate domain, and some write them in a way plain <code>wget</code> reads as a broken path. Web Cloner finishes the job: it reads the saved pages, fetches what is still missing and points every reference at the local file.</p>
+    <div class="compare">
+      <figure>
+        <figcaption><svg class="i"><use href="#x"/></svg> What a plain mirror saves</figcaption>
+        <div class="sample">11 files, 221 KB<br>
+          <span class="r">404</span> cdn.example.net/hero.jpg<br>
+          <span class="r">404</span> cdn.example.net/team.jpg<br>
+          background-image: <span class="r">url("https://cdn…")</span></div>
+      </figure>
+      <figure class="good">
+        <figcaption><svg class="i"><use href="#check"/></svg> What Web Cloner saves</figcaption>
+        <div class="sample">30 files, 1.0 MB<br>
+          <span class="c">ok</span> cdn.example.net/hero.jpg<br>
+          <span class="c">ok</span> cdn.example.net/team.jpg<br>
+          background-image: <span class="c">url(../cdn.example.net/hero.jpg)</span></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What you also get</h2>
+    <p class="section-lede">The parts that turn a download into something you can still use months later.</p>
+    <div class="cards">
+      <div class="card">
+        <h3><svg class="i"><use href="#map"/></svg> A sitemap every run</h3>
+        <p>A standard <code>sitemap.xml</code> of every page found, whether you saved the site or only scanned it.</p>
+      </div>
+      <div class="card">
+        <h3><svg class="i"><use href="#bolt"/></svg> Speed you set</h3>
+        <p>Polite waits between requests and caps the rate. Fast does not pause. Your call, per job.</p>
+      </div>
+      <div class="card">
+        <h3><svg class="i"><use href="#shield"/></svg> Updates in place</h3>
+        <p>The app checks for a new release on launch and replaces itself. Nothing to download twice.</p>
+      </div>
+      <div class="card">
+        <h3><svg class="i"><use href="#copy"/></svg> The exact command</h3>
+        <p>Every option maps to a <code>wget</code> flag, and one button copies the whole command.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Read on</h2>
+    <div class="next">
+      <a href="/features/"><b>Features</b><span>Every job and option, in detail</span></a>
+      <a href="/guide/"><b>How to save a website</b><span>Step by step, start to offline copy</span></a>
+      <a href="/developers/"><b>Developer options</b><span>Paths, patterns, headers, flags</span></a>
+      <a href="/httrack-alternative/"><b>Coming from HTTrack?</b><span>What is the same, what is not</span></a>
+    </div>
+  </div>
+</section>

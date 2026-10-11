@@ -1,0 +1,54 @@
+<section>
+  <div class="wrap prose">
+    <p><strong>Web Cloner does three things to a website</strong>, and each one ends with files on your own disk rather than a tab you hope stays open. It drives <code>wget</code>, the mirroring tool that has been doing this since 1996, and puts a window around it so you never type a flag unless you want to.</p>
+
+    <h2>Clone a site for offline reading</h2>
+    <p>The Clone job starts at the address you give it, follows the links it finds, and saves every page along with the stylesheets, scripts, fonts and images those pages need. Links are rewritten as it goes, so <code>index.html</code> opens in any browser with the network switched off and the site behaves the way it did online.</p>
+    <p>You decide how far it goes. Whole site follows every internal link, or you can stop at one, two, three or five levels deep. Turning off images and media leaves HTML, CSS and JavaScript only, which is far smaller and much faster when you only care about the text.</p>
+
+    <h2>Scan without downloading</h2>
+    <p>Scan walks the same links but saves nothing. It is the quickest way to learn how large a site really is, which pages exist, and which links are already broken. Every page appears in the list with its status, and the run still writes a <code>sitemap.xml</code> at the end.</p>
+
+    <h2>Screenshot every page</h2>
+    <p>The Screenshot job renders each page in WebKit, the engine behind Safari, and writes a full-page PNG at 1280, 1440 or 1920 pixels wide. Because it is a real browser engine, JavaScript runs and the page looks the way a visitor sees it. That makes it the one job that still captures a site built entirely in the browser. A single run covers up to 60 pages.</p>
+
+    <h2>Images that live on another domain</h2>
+    <p>This is where most site copiers quietly fail. A modern site serves its pictures, fonts and stylesheets from a separate domain, and a plain mirror follows one host only, so those files are never fetched. Some pages also write a background image in a form that <code>wget</code> reads as a relative path, requests, and logs as a 404.</p>
+    <p>Web Cloner runs a repair pass after the mirror. It reads the saved pages and stylesheets, collects every asset URL still pointing elsewhere, untangles the mangled ones, downloads what is missing and rewrites each reference to the local copy. On a test site built with Webflow that took the result from 11 files and 221 KB to 30 files and 1 MB, with all 325 references resolving offline.</p>
+
+    <h2>A page list instead of a log</h2>
+    <p>While a job runs, each URL appears with its own state: downloading, done, failed or redirected, the size beside it, and the reason when something fails. The counters at the top filter the list when you click them, so every 404 on a site is one tap away. The raw <code>wget</code> output stays available under the Log tab.</p>
+
+    <h2>Speed and depth</h2>
+    <p>Polite adds a wait between requests and caps the transfer rate, which is what you want on a server that is not yours. Normal keeps a short pause. Fast does not wait and is meant for sites you run. Robots rules are respected unless you turn that off, which is a choice for your own sites.</p>
+
+    <h2>Options for developers</h2>
+    <p>The Advanced panel maps one to one onto <code>wget</code> flags: skip paths, restrict to a single section, reject URLs by pattern or file type, allow extra asset domains, cap the download size, basic authentication, keep the original links, ignore certificate errors. A button copies the finished command for a terminal or a script. <a href="/developers/">See the full list</a>.</p>
+
+    <h2>Setup and updates that handle themselves</h2>
+    <p>If <code>wget</code> is missing, the app offers to install it through Homebrew, and installs Homebrew first when that is missing too. Once running, it checks for a newer release on launch and replaces itself in place, so you never download the app a second time.</p>
+
+    <h2>One build, both chips</h2>
+    <p>A single universal binary runs natively on Intel and Apple Silicon with no Rosetta, needs macOS 13 Ventura or later, and is MIT licensed with no account, no telemetry and no paid tier.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <figure class="shot">
+      <img src="/app-dark.png" width="1800" height="1456" alt="Web Cloner cloning a website, with the page list filling in and one 404 marked in red" loading="lazy">
+      <figcaption>A clone in progress: nine pages done, one 404, and the size of every file on the right.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Read on</h2>
+    <div class="next">
+      <a href="/guide/"><b>How to save a website</b><span>Step by step on a Mac</span></a>
+      <a href="/developers/"><b>Developer options</b><span>Every field and its flag</span></a>
+      <a href="/download/"><b>Download</b><span>Disk image or Homebrew</span></a>
+    </div>
+  </div>
+</section>

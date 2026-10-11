@@ -1,0 +1,76 @@
+<section>
+  <div class="wrap">
+
+    <details open>
+      <summary><svg class="i"><use href="#caret"/></svg> Is it really free?</summary>
+      <p>Yes. MIT licensed, no account, no telemetry, no paid tier and no upsell. The whole source is on GitHub and you can build it yourself with the Xcode command line tools.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Does it work on JavaScript-heavy sites?</summary>
+      <p><code>wget</code> does not run JavaScript, so a site that renders entirely in the browser gives you its shell rather than its content. Use the Screenshot job for those: it renders each page in WebKit, the engine behind Safari, and saves what a visitor would see.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Why do some copies lose their images?</summary>
+      <p>Most tools mirror a single host, and modern sites keep their pictures, fonts and stylesheets on a separate asset domain. Web Cloner runs a repair pass after the mirror that downloads those files and points every reference at the local copy, which is the main reason its copies open properly offline.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> How big will the download be?</summary>
+      <p>That depends entirely on the site. Run the Scan job first: it walks the same links without saving anything and tells you how many pages exist. Turning off images and media, or limiting the depth to one or two levels, cuts most jobs down sharply.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Will it get me blocked?</summary>
+      <p>Set Speed to Polite and the app waits between requests and caps its transfer rate, which is the courteous way to treat a server that is not yours. Robots rules are respected unless you turn that off, which is a setting for sites you run yourself.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Can I save part of a site?</summary>
+      <p>Yes. Start from the section URL, or open Advanced and use Only these paths to keep the job inside one folder, and Skip these paths to leave sections out. <a href="/developers/">The full list of options is here</a>.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Intel or Apple Silicon?</summary>
+      <p>Both. One universal build, native on each, no Rosetta. macOS 13 Ventura or later.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Why does macOS warn me the first time?</summary>
+      <p>The app is signed so it runs, but it is not notarised by Apple, which is a paid developer programme. Right-click the app and choose Open the first time, and macOS stops asking. You can also install with Homebrew and skip the prompt.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> How do updates work?</summary>
+      <p>The app checks for a newer release on launch and offers to install it in place, keeping your settings and your saved sites. There is also Check for Updates in the menu. Nothing to download twice, nothing to delete.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Where do the files go?</summary>
+      <p>Into the folder you pick, one directory per host, plus a <code>screenshots</code> folder when you run that job and a <code>sitemap.xml</code> listing every page found. They are ordinary files and folders, so you can move, zip or back them up like anything else.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Is this an HTTrack alternative?</summary>
+      <p>Same job, different shape: a native macOS window, a live page list instead of a log to decode, a sitemap after every run, screenshots built in, and the repair pass that keeps offline copies from losing their images. <a href="/httrack-alternative/">A closer comparison is here</a>.</p>
+    </details>
+
+    <details>
+      <summary><svg class="i"><use href="#caret"/></svg> Can I use the copies commercially?</summary>
+      <p>The app is MIT licensed, so the software is yours to use however you like. What you download with it belongs to whoever made it, and copyright still applies. Save what you own or have permission to save.</p>
+    </details>
+
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Still stuck?</h2>
+    <div class="next">
+      <a href="REPO/issues"><b>Open an issue</b><span>Bugs and questions on GitHub</span></a>
+      <a href="/guide/"><b>Step by step</b><span>The whole process in order</span></a>
+      <a href="/features/"><b>Features</b><span>What each job produces</span></a>
+    </div>
+  </div>
+</section>

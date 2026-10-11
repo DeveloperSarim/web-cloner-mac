@@ -1,0 +1,62 @@
+<section>
+  <div class="wrap prose">
+    <p>HTTrack has been copying websites since 1998 and still works. On a Mac, though, it is a command line tool or an interface built for Windows, and it predates the way sites are put together now. Web Cloner does the same job in a native macOS window, and handles a few things HTTrack was never asked to.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>Web Cloner</th><th>HTTrack on macOS</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Interface</td><td class="yes">Native Mac window</td><td class="no">Command line, or a port of the Windows UI</td></tr>
+        <tr><td>Install</td><td class="yes">Disk image or Homebrew cask</td><td class="no">Homebrew formula, terminal only</td></tr>
+        <tr><td>Progress</td><td class="yes">A live list of pages with sizes and failures</td><td class="no">A scrolling log</td></tr>
+        <tr><td>Assets on another domain</td><td class="yes">Downloaded and relinked after the mirror</td><td class="no">Needs manual configuration, often missed</td></tr>
+        <tr><td>Sitemap</td><td class="yes">Written after every run</td><td class="no">Not produced</td></tr>
+        <tr><td>Screenshots</td><td class="yes">Full-page PNG of each page</td><td class="no">Not a feature</td></tr>
+        <tr><td>Scan without saving</td><td class="yes">A mode of its own</td><td class="no">Possible with flags</td></tr>
+        <tr><td>Updates</td><td class="yes">In place, from the app</td><td class="no">Through your package manager</td></tr>
+        <tr><td>Apple Silicon</td><td class="yes">Native universal binary</td><td class="yes">Builds natively</td></tr>
+        <tr><td>Price and licence</td><td class="yes">Free, MIT</td><td class="yes">Free, GPL</td></tr>
+        <tr><td>Windows and Linux</td><td class="no">macOS only</td><td class="yes">Everywhere</td></tr>
+        <tr><td>Resume a stopped job</td><td class="no">Start again, finished files are kept</td><td class="yes">Built in</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap prose">
+    <h2>Where HTTrack still wins</h2>
+    <p>It runs on Windows and Linux, so a team on mixed machines can share one workflow. It resumes an interrupted mirror properly, which matters on very large sites. It has twenty-five years of options for situations nobody else has thought about.</p>
+
+    <h2>Where Web Cloner is easier</h2>
+    <p>You see what is happening. Each page lands in a list with its size and status instead of scrolling past in a log, and clicking a counter filters to every page that failed. Assets served from a separate domain come down and get relinked without you configuring anything, which is the usual reason a copy looks broken offline. Every run leaves a sitemap, and screenshots are a job rather than a separate tool.</p>
+
+    <h2>The honest summary</h2>
+    <p>If you need one tool across operating systems, or you mirror very large sites and resuming matters, HTTrack is still the right answer. If you are on a Mac and want a copy that opens correctly when you double-click it, Web Cloner gets you there with less setup. Both are free, so trying ours costs you a download.</p>
+
+    <h2>Other tools people compare</h2>
+    <ul>
+      <li><strong>SiteSucker</strong> is a long-running Mac app and a reasonable choice. It is paid on the App Store.</li>
+      <li><strong>wget</strong> itself is what Web Cloner drives. If you are happy in a terminal, the app will even hand you the command it would run.</li>
+      <li><strong>curl</strong> fetches single files well but does not crawl a site or rewrite links.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Try it</h2>
+    <div class="next">
+      <a href="/download/"><b>Download</b><span>Free, macOS 13 and later</span></a>
+      <a href="/guide/"><b>Step by step</b><span>Save your first site</span></a>
+      <a href="/developers/"><b>Developer options</b><span>Every field and its wget flag</span></a>
+    </div>
+  </div>
+</section>

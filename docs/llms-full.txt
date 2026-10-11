@@ -1,0 +1,552 @@
+# Web Cloner — full site text
+
+Source: https://web-cloner.sarimtools.com  |  Version 1.2.0  |  Updated 2026-10-11
+
+
+---
+
+# Web Cloner — save any website to your Mac
+
+URL: https://web-cloner.sarimtools.com/
+
+Keep the whole website, not a pile of tabs.
+
+Web Cloner copies a site to your Mac so it opens offline, links and images included. Point it at an address and watch every page land.
+
+Download for macOS
+
+View the source
+
+Version 1.2.0, free and MIT licensed
+macOS 13 and later, Intel and Apple Silicon
+
+cloning example.studio
+9 pages, 1.2 MB
+
+/12 KB
+
+/about18 KB
+
+/assets/site.css74 KB
+
+/work17 KB
+
+/work/slate20 KB
+
+cdn.example.net/hero.jpg268 KB
+
+/legacy/mailing-list404 Not Found
+
+/work/vertex20 KB
+
+/journal/why-offline31 KB
+
+/assets/type/plex.woff241 KB
+
+Done. Open index.html with the internet off.
+
+## Three jobs, one window
+
+Pick what you want from a site. The pages arrive in a list as they finish, with sizes and failures in plain sight.
+
+### Clone
+
+Pages, stylesheets, scripts and images, with every link rewritten to the local copy.
+
+example.studio/
+
+├── index.html
+
+├── about.html
+
+├── work/slate.html
+
+└── assets/site.css, hero.jpg, plex.woff2
+
+### Scan
+
+Walks the site without saving a byte and tells you what is there, including the links that are broken.
+
+<urlset>
+
+<url><loc>https://example.studio/</loc></url>
+
+<url><loc>https://example.studio/about</loc></url>
+
+404 /legacy/mailing-list
+
+</urlset>
+
+### Screenshot
+
+A full-page PNG of every page it finds, rendered in a real browser engine at the width you choose.
+
+screenshots/
+
+├── example.studio-home.png 1440 × 5120
+
+├── example.studio-about.png 1440 × 3860
+
+└── example.studio-work.png 1440 × 4400
+
+## The images other cloners leave behind
+
+Most sites serve their pictures and fonts from a separate domain, and some write them in a way plain wget reads as a broken path. Web Cloner finishes the job: it reads the saved pages, fetches what is still missing and points every reference at the local file.
+
+11 files, 221 KB
+
+404 cdn.example.net/hero.jpg
+
+404 cdn.example.net/team.jpg
+
+background-image: url("https://cdn…")
+
+30 files, 1.0 MB
+
+ok cdn.example.net/hero.jpg
+
+ok cdn.example.net/team.jpg
+
+background-image: url(../cdn.example.net/hero.jpg)
+
+## What you also get
+
+The parts that turn a download into something you can still use months later.
+
+### A sitemap every run
+
+A standard sitemap.xml of every page found, whether you saved the site or only scanned it.
+
+### Speed you set
+
+Polite waits between requests and caps the rate. Fast does not pause. Your call, per job.
+
+### Updates in place
+
+The app checks for a new release on launch and replaces itself. Nothing to download twice.
+
+### The exact command
+
+Every option maps to a wget flag, and one button copies the whole command.
+
+## Read on
+
+FeaturesEvery job and option, in detail
+How to save a websiteStep by step, start to offline copy
+Developer optionsPaths, patterns, headers, flags
+Coming from HTTrack?What is the same, what is not
+
+
+---
+
+# Everything Web Cloner does
+
+URL: https://web-cloner.sarimtools.com/features/
+
+Three jobs, the repair pass that keeps images from going missing, and the options behind them.
+
+Web Cloner does three things to a website, and each one ends with files on your own disk rather than a tab you hope stays open. It drives wget, the mirroring tool that has been doing this since 1996, and puts a window around it so you never type a flag unless you want to.
+
+## Clone a site for offline reading
+
+The Clone job starts at the address you give it, follows the links it finds, and saves every page along with the stylesheets, scripts, fonts and images those pages need. Links are rewritten as it goes, so index.html opens in any browser with the network switched off and the site behaves the way it did online.
+
+You decide how far it goes. Whole site follows every internal link, or you can stop at one, two, three or five levels deep. Turning off images and media leaves HTML, CSS and JavaScript only, which is far smaller and much faster when you only care about the text.
+
+## Scan without downloading
+
+Scan walks the same links but saves nothing. It is the quickest way to learn how large a site really is, which pages exist, and which links are already broken. Every page appears in the list with its status, and the run still writes a sitemap.xml at the end.
+
+## Screenshot every page
+
+The Screenshot job renders each page in WebKit, the engine behind Safari, and writes a full-page PNG at 1280, 1440 or 1920 pixels wide. Because it is a real browser engine, JavaScript runs and the page looks the way a visitor sees it. That makes it the one job that still captures a site built entirely in the browser. A single run covers up to 60 pages.
+
+## Images that live on another domain
+
+This is where most site copiers quietly fail. A modern site serves its pictures, fonts and stylesheets from a separate domain, and a plain mirror follows one host only, so those files are never fetched. Some pages also write a background image in a form that wget reads as a relative path, requests, and logs as a 404.
+
+Web Cloner runs a repair pass after the mirror. It reads the saved pages and stylesheets, collects every asset URL still pointing elsewhere, untangles the mangled ones, downloads what is missing and rewrites each reference to the local copy. On a test site built with Webflow that took the result from 11 files and 221 KB to 30 files and 1 MB, with all 325 references resolving offline.
+
+## A page list instead of a log
+
+While a job runs, each URL appears with its own state: downloading, done, failed or redirected, the size beside it, and the reason when something fails. The counters at the top filter the list when you click them, so every 404 on a site is one tap away. The raw wget output stays available under the Log tab.
+
+## Speed and depth
+
+Polite adds a wait between requests and caps the transfer rate, which is what you want on a server that is not yours. Normal keeps a short pause. Fast does not wait and is meant for sites you run. Robots rules are respected unless you turn that off, which is a choice for your own sites.
+
+## Options for developers
+
+The Advanced panel maps one to one onto wget flags: skip paths, restrict to a single section, reject URLs by pattern or file type, allow extra asset domains, cap the download size, basic authentication, keep the original links, ignore certificate errors. A button copies the finished command for a terminal or a script. See the full list.
+
+## Setup and updates that handle themselves
+
+If wget is missing, the app offers to install it through Homebrew, and installs Homebrew first when that is missing too. Once running, it checks for a newer release on launch and replaces itself in place, so you never download the app a second time.
+
+## One build, both chips
+
+A single universal binary runs natively on Intel and Apple Silicon with no Rosetta, needs macOS 13 Ventura or later, and is MIT licensed with no account, no telemetry and no paid tier.
+
+## Read on
+
+How to save a websiteStep by step on a Mac
+Developer optionsEvery field and its flag
+DownloadDisk image or Homebrew
+
+
+---
+
+# Download Web Cloner
+
+URL: https://web-cloner.sarimtools.com/download/
+
+Free, MIT licensed, and the same build on Intel and Apple Silicon.
+
+## Get the app
+
+Two ways, both free. The disk image is the usual route. Homebrew is handy if you already live in a terminal.
+
+Download Web Cloner 1.2.0
+All releases
+
+brew install --cask DeveloperSarim/tap/web-cloner
+
+## What it needs
+
+- macOS 13 Ventura or later.
+
+- Any Mac from the last decade. One universal build runs natively on Intel and Apple Silicon.
+
+- wget. The app installs it through Homebrew if it is missing, and installs Homebrew first when you do not have that either. The cask above pulls it in for you.
+
+- About 6 MB of disk for the app. Saved sites live wherever you point them.
+
+## Opening it the first time
+
+Web Cloner is signed so it runs, but it is not notarised by Apple, which costs 99 dollars a year. macOS therefore asks about it once. Right-click the app in Applications, choose Open, then confirm. After that it opens normally.
+
+Installing with Homebrew and want to skip that prompt? Add the flag:
+
+brew install --cask --no-quarantine DeveloperSarim/tap/web-cloner
+
+## Updates
+
+Nothing to do. On launch the app asks for the newest release and, if there is one, offers to install it in place. Your settings and saved sites stay where they are. There is also Web Cloner then Check for Updates in the menu bar.
+
+## Checking the file you downloaded
+
+If you want to confirm the disk image is the one that was published, compare its checksum:
+
+shasum -a 256 ~/Downloads/WebCloner.dmg
+
+The expected value for the current version sits in the Homebrew cask, which Homebrew checks for you on every install.
+
+## Building it yourself
+
+The app is a handful of Swift files with no dependencies. With the Xcode command line tools installed:
+
+git clone https://github.com/DeveloperSarim/web-cloner-mac.git
+cd web-cloner-mac
+./build.sh
+
+That produces the app and a disk image as a universal binary. Full Xcode is not required.
+
+## Removing it
+
+Drag the app to the Trash, or brew uninstall --cask web-cloner. Sites you saved are plain folders and stay untouched until you delete them yourself.
+
+## Next
+
+How to save a websiteYour first clone, step by step
+FeaturesWhat the three jobs produce
+FAQSizes, JavaScript, licensing
+
+
+---
+
+# How to save a whole website on a Mac
+
+URL: https://web-cloner.sarimtools.com/guide/
+
+From a blank window to a copy that opens with the network off.
+
+This walks through saving a complete website on a Mac, from installing the app to opening the copy with the network off. It takes about two minutes of your attention, then however long the site needs.
+
+Save sites you own, sites that invite it, or pages you are allowed to archive. Leave the robots setting alone unless the site is yours.
+
+-
+
+### Install Web Cloner
+
+Download the disk image, drag the app onto Applications, then right-click it and choose Open the first time. If wget is missing, the app offers to install it.
+
+-
+
+### Type the address
+
+Put the site in the Address field. example.com is enough, the app fills in the rest. Starting from a section such as example.com/docs keeps the job inside that section.
+
+-
+
+### Choose where it lands
+
+Save to defaults to a WebCloner folder in Downloads. Press Choose to put it anywhere else. Each site gets its own folder named after the host.
+
+-
+
+### Pick the job
+
+Clone saves the site, Scan only lists what is there, Screenshot captures each page as an image. For an offline copy, leave it on Clone.
+
+-
+
+### Set how deep and how fast
+
+Whole site follows every internal link; one or two levels is plenty for a quick copy. Set Speed to Polite on a site you do not run, which adds a pause between requests and a rate cap.
+
+-
+
+### Press Start Cloning
+
+Pages appear in the list as they finish, with their size, and anything that fails is marked in red with the reason. Click a counter at the top to filter the list.
+
+-
+
+### Open it offline
+
+When it finishes, press Open Website, which opens index.html from your disk. Turn off Wi-Fi and reload to prove the copy is complete.
+
+## What ends up in the folder
+
+<save folder>/
+example.com/ the site, open index.html
+cdn.example.net/ images and fonts from the asset domain
+screenshots/ PNGs, if you ran that job
+sitemap.xml every page that was found
+
+## Making a job smaller or faster
+
+- Turn off images and media when you only want the words. HTML, CSS and JavaScript alone finish in a fraction of the time.
+
+- Limit the depth. Two levels covers most of what anyone actually reads on a blog or a documentation site.
+
+- Skip the heavy sections. In Advanced, leaving out a path such as /blog, or refusing PDFs, often removes most of the download. See the options.
+
+## When the copy does not look right
+
+If it opens but looks unstyled, the stylesheet probably lives on another domain and the run was stopped early. Let the job finish, because the repair pass that fetches those files runs at the end.
+
+If whole sections are missing, the site likely builds its pages in the browser with JavaScript. wget does not run JavaScript, so it saves the shell rather than the content. Use the Screenshot job for those sites: it renders each page in WebKit and gives you an image of what a visitor sees.
+
+If nothing downloads at all, check that the address loads in a browser, then try Polite speed, which some servers are happier with.
+
+## Doing the same thing from a terminal
+
+Every option in the app is a wget flag, and the Advanced panel has a button that copies the finished command. Paste it into a script when you want the same job to run on a schedule. The full mapping is here.
+
+## Next
+
+Developer optionsNarrow a job down to exactly what you want
+FAQJavaScript sites, sizes, licensing
+DownloadGet the app
+
+
+---
+
+# Options for developers
+
+URL: https://web-cloner.sarimtools.com/developers/
+
+Each field is one wget flag, and the app will hand you the finished command.
+
+Open Advanced in the Options card and the app stops guessing. Each field maps to exactly one wget flag, and a field you leave empty adds nothing to the command.
+
+Field | What it does | Flag |
+
+Skip these paths | Leave out whole sections, comma separated | --exclude-directories |
+
+Only these paths | Save one section and nothing else | --include-directories |
+
+Skip URLs matching | A regular expression tested against the full URL | --reject-regex |
+
+Skip file types | Extensions to refuse, comma separated | --reject |
+
+Also allow domains | Follow an extra asset domain alongside the site | --span-hosts --domains |
+
+Stop after | A hard cap in megabytes | --quota |
+
+Extra headers | One per line, sent with every request | --header |
+
+HTTP user and password | Basic authentication | --user, --password |
+
+Keep original links | Leaves the HTML exactly as the server sent it | drops --convert-links |
+
+Ignore SSL errors | For a staging box with a bad certificate | --no-check-certificate |
+
+How deep | Whole site, or one to five levels | --level |
+
+Speed | Polite adds a wait and a rate cap | --wait, --limit-rate |
+
+Download images and media | Off leaves HTML, CSS and JavaScript | --reject on media types |
+
+## Two examples
+
+### Documentation only
+
+Put /docs in Only these paths. Everything outside it is ignored, including the marketing pages and the blog that usually account for most of a download.
+
+### Everything except the archives
+
+Put pdf in Skip file types and /tag/ in Skip URLs matching. Tag and category pages repeat content you already have, so dropping them often halves the job.
+
+## The command it builds
+
+Copy wget command puts the exact invocation on your clipboard, ready for a terminal or a scheduled script. The app log hides any password; the copied command keeps it so the command still runs.
+
+wget --recursive --level=inf --no-parent --convert-links --page-requisites \
+--exclude-directories=/blog --reject-regex='\.pdf$' --quota=500m \
+--directory-prefix=/Users/you/Downloads/WebCloner https://example.studio
+
+## What the app adds on top of wget
+
+Two things happen that a bare command does not do.
+
+The page list is parsed from wget's own output. Each URL becomes a row with a state and a size, assets are kept out of the way, and the counters filter the list.
+
+The repair pass runs when a clone finishes. It reads the saved HTML and CSS, finds asset URLs that still point at another domain, downloads the ones you do not have yet, and rewrites each reference to the local file. It repeats once, so assets referenced by a stylesheet it just fetched are picked up too. That is the step that keeps images from going missing in an offline copy.
+
+## Reading the source
+
+Argument building lives in one function, wgetArgs(), with tests beside it, so what the app runs is easy to check. The whole project is four Swift files. Read it on GitHub.
+
+## Next
+
+FeaturesWhat each job produces
+Step by stepYour first saved site
+Source codeSwift, build script and tests
+
+
+---
+
+# Questions people ask
+
+URL: https://web-cloner.sarimtools.com/faq/
+
+What the app can save, what it cannot, and how it behaves.
+
+Is it really free?
+
+Yes. MIT licensed, no account, no telemetry, no paid tier and no upsell. The whole source is on GitHub and you can build it yourself with the Xcode command line tools.
+
+Does it work on JavaScript-heavy sites?
+
+wget does not run JavaScript, so a site that renders entirely in the browser gives you its shell rather than its content. Use the Screenshot job for those: it renders each page in WebKit, the engine behind Safari, and saves what a visitor would see.
+
+Why do some copies lose their images?
+
+Most tools mirror a single host, and modern sites keep their pictures, fonts and stylesheets on a separate asset domain. Web Cloner runs a repair pass after the mirror that downloads those files and points every reference at the local copy, which is the main reason its copies open properly offline.
+
+How big will the download be?
+
+That depends entirely on the site. Run the Scan job first: it walks the same links without saving anything and tells you how many pages exist. Turning off images and media, or limiting the depth to one or two levels, cuts most jobs down sharply.
+
+Will it get me blocked?
+
+Set Speed to Polite and the app waits between requests and caps its transfer rate, which is the courteous way to treat a server that is not yours. Robots rules are respected unless you turn that off, which is a setting for sites you run yourself.
+
+Can I save part of a site?
+
+Yes. Start from the section URL, or open Advanced and use Only these paths to keep the job inside one folder, and Skip these paths to leave sections out. The full list of options is here.
+
+Intel or Apple Silicon?
+
+Both. One universal build, native on each, no Rosetta. macOS 13 Ventura or later.
+
+Why does macOS warn me the first time?
+
+The app is signed so it runs, but it is not notarised by Apple, which is a paid developer programme. Right-click the app and choose Open the first time, and macOS stops asking. You can also install with Homebrew and skip the prompt.
+
+How do updates work?
+
+The app checks for a newer release on launch and offers to install it in place, keeping your settings and your saved sites. There is also Check for Updates in the menu. Nothing to download twice, nothing to delete.
+
+Where do the files go?
+
+Into the folder you pick, one directory per host, plus a screenshots folder when you run that job and a sitemap.xml listing every page found. They are ordinary files and folders, so you can move, zip or back them up like anything else.
+
+Is this an HTTrack alternative?
+
+Same job, different shape: a native macOS window, a live page list instead of a log to decode, a sitemap after every run, screenshots built in, and the repair pass that keeps offline copies from losing their images. A closer comparison is here.
+
+Can I use the copies commercially?
+
+The app is MIT licensed, so the software is yours to use however you like. What you download with it belongs to whoever made it, and copyright still applies. Save what you own or have permission to save.
+
+## Still stuck?
+
+Open an issueBugs and questions on GitHub
+Step by stepThe whole process in order
+FeaturesWhat each job produces
+
+
+---
+
+# An HTTrack alternative for the Mac
+
+URL: https://web-cloner.sarimtools.com/httrack-alternative/
+
+Same job, a native window, and a few things HTTrack never did.
+
+HTTrack has been copying websites since 1998 and still works. On a Mac, though, it is a command line tool or an interface built for Windows, and it predates the way sites are put together now. Web Cloner does the same job in a native macOS window, and handles a few things HTTrack was never asked to.
+
+| Web Cloner | HTTrack on macOS |
+
+Interface | Native Mac window | Command line, or a port of the Windows UI |
+
+Install | Disk image or Homebrew cask | Homebrew formula, terminal only |
+
+Progress | A live list of pages with sizes and failures | A scrolling log |
+
+Assets on another domain | Downloaded and relinked after the mirror | Needs manual configuration, often missed |
+
+Sitemap | Written after every run | Not produced |
+
+Screenshots | Full-page PNG of each page | Not a feature |
+
+Scan without saving | A mode of its own | Possible with flags |
+
+Updates | In place, from the app | Through your package manager |
+
+Apple Silicon | Native universal binary | Builds natively |
+
+Price and licence | Free, MIT | Free, GPL |
+
+Windows and Linux | macOS only | Everywhere |
+
+Resume a stopped job | Start again, finished files are kept | Built in |
+
+## Where HTTrack still wins
+
+It runs on Windows and Linux, so a team on mixed machines can share one workflow. It resumes an interrupted mirror properly, which matters on very large sites. It has twenty-five years of options for situations nobody else has thought about.
+
+## Where Web Cloner is easier
+
+You see what is happening. Each page lands in a list with its size and status instead of scrolling past in a log, and clicking a counter filters to every page that failed. Assets served from a separate domain come down and get relinked without you configuring anything, which is the usual reason a copy looks broken offline. Every run leaves a sitemap, and screenshots are a job rather than a separate tool.
+
+## The honest summary
+
+If you need one tool across operating systems, or you mirror very large sites and resuming matters, HTTrack is still the right answer. If you are on a Mac and want a copy that opens correctly when you double-click it, Web Cloner gets you there with less setup. Both are free, so trying ours costs you a download.
+
+## Other tools people compare
+
+- SiteSucker is a long-running Mac app and a reasonable choice. It is paid on the App Store.
+
+- wget itself is what Web Cloner drives. If you are happy in a terminal, the app will even hand you the command it would run.
+
+- curl fetches single files well but does not crawl a site or rewrite links.
+
+## Try it
+
+DownloadFree, macOS 13 and later
+Step by stepSave your first site
+Developer optionsEvery field and its wget flag

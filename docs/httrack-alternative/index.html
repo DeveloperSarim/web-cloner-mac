@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTTrack alternative for Mac — Web Cloner</title>
+<meta name="description" content="Looking for HTTrack on macOS? Web Cloner is a native Mac app that mirrors websites, with a live page list, sitemaps and full-page screenshots.">
+<link rel="canonical" href="https://web-cloner.sarimtools.com/httrack-alternative/">
+<link rel="icon" href="/icon.png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta name="theme-color" content="#0c1819" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f7f5" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Web Cloner">
+<meta property="og:title" content="HTTrack alternative for Mac — Web Cloner">
+<meta property="og:description" content="Looking for HTTrack on macOS? Web Cloner is a native Mac app that mirrors websites, with a live page list, sitemaps and full-page screenshots.">
+<meta property="og:url" content="https://web-cloner.sarimtools.com/httrack-alternative/">
+<meta property="og:image" content="https://web-cloner.sarimtools.com/banner.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HTTrack alternative for Mac — Web Cloner">
+<meta name="twitter:description" content="Looking for HTTrack on macOS? Web Cloner is a native Mac app that mirrors websites, with a live page list, sitemaps and full-page screenshots.">
+<meta name="twitter:image" content="https://web-cloner.sarimtools.com/banner.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css?v=842128a4">
+<script>
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  } catch (e) {}
+</script>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></symbol>
+  <symbol id="apple" viewBox="0 0 16 16"><path d="M11.18 8.5c-.02-1.72 1.4-2.55 1.47-2.59-.8-1.17-2.05-1.33-2.5-1.35-1.06-.11-2.07.62-2.61.62-.54 0-1.37-.61-2.25-.59-1.16.02-2.23.67-2.82 1.71-1.2 2.09-.31 5.18.86 6.87.57.83 1.26 1.76 2.16 1.73.87-.04 1.2-.56 2.25-.56s1.35.56 2.27.54c.94-.02 1.53-.84 2.1-1.68.66-.96.94-1.9.95-1.95-.02-.01-1.82-.7-1.84-2.75ZM9.46 3.4c.48-.58.8-1.38.71-2.18-.69.03-1.52.46-2.01 1.03-.44.51-.83 1.33-.73 2.11.77.06 1.55-.39 2.03-.96Z"/></symbol>
+  <symbol id="star" viewBox="0 0 16 16"><path d="M8 .9l2.1 4.56 4.98.58-3.69 3.39.99 4.92L8 11.9l-4.38 2.45.99-4.92L.92 6.04l4.98-.58L8 .9Z"/></symbol>
+  <symbol id="sun" viewBox="0 0 16 16"><path d="M8 11.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm0-8.1a.7.7 0 0 1-.7-.7V.9a.7.7 0 0 1 1.4 0v1.5a.7.7 0 0 1-.7.7Zm0 11.3a.7.7 0 0 1 .7.7v1.5a.7.7 0 0 1-1.4 0v-1.5a.7.7 0 0 1 .7-.7Zm7.1-6.4a.7.7 0 0 1-.7.7h-1.5a.7.7 0 0 1 0-1.4h1.5a.7.7 0 0 1 .7.7ZM3.1 8a.7.7 0 0 1-.7.7H.9a.7.7 0 0 1 0-1.4h1.5a.7.7 0 0 1 .7.7Zm9.9-4.3-1.1 1.1a.7.7 0 0 1-1-1l1.1-1.1a.7.7 0 0 1 1 1ZM4.1 11.9l-1.1 1.1a.7.7 0 0 1-1-1l1.1-1.1a.7.7 0 1 1 1 1Zm8.9 1.1-1.1-1.1a.7.7 0 1 1 1-1l1.1 1.1a.7.7 0 0 1-1 1ZM3 3.7 4.1 4.8a.7.7 0 0 1-1 1L2 4.7a.7.7 0 0 1 1-1Z"/></symbol>
+  <symbol id="moon" viewBox="0 0 16 16"><path d="M13.7 9.9A6.1 6.1 0 0 1 6.1 2.3a.7.7 0 0 0-.9-.9A6.9 6.9 0 1 0 14.6 10.8a.7.7 0 0 0-.9-.9Z"/></symbol>
+  <symbol id="check" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.9 5.9-4.6 5.2a.8.8 0 0 1-1.1.05L3.9 9a.8.8 0 1 1 1.05-1.2l1.7 1.5 4.05-4.6a.8.8 0 1 1 1.2 1.05Z"/></symbol>
+  <symbol id="x" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3 10a.75.75 0 1 1-1.06 1.06L8 9.06l-1.94 2A.75.75 0 1 1 5 10l2-1.94L5 6.06A.75.75 0 1 1 6.06 5L8 7l1.94-2A.75.75 0 0 1 11 6.06L9.06 8 11 10Z"/></symbol>
+  <symbol id="copy" viewBox="0 0 16 16"><path d="M10.5 0H3a2 2 0 0 0-2 2v8.5a.75.75 0 0 0 1.5 0V2a.5.5 0 0 1 .5-.5h7.5a.75.75 0 0 0 0-1.5Zm2.5 3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm.5 11a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v9Z"/></symbol>
+  <symbol id="search" viewBox="0 0 16 16"><path d="M11.2 10.1a6 6 0 1 0-1.1 1.1l3.3 3.3a.8.8 0 0 0 1.1-1.1l-3.3-3.3ZM2.5 6.5a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z"/></symbol>
+  <symbol id="camera" viewBox="0 0 16 16"><path d="M13.5 3H11l-.6-1.2a1 1 0 0 0-.9-.55H6.5a1 1 0 0 0-.9.55L5 3H2.5A1.5 1.5 0 0 0 1 4.5v8A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 13.5 3ZM8 11.75A3.25 3.25 0 1 1 8 5.25a3.25 3.25 0 0 1 0 6.5Zm0-1.5a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5Z"/></symbol>
+  <symbol id="caret" viewBox="0 0 16 16"><path d="M5.5 2.5 11 8l-5.5 5.5V2.5Z"/></symbol>
+  <symbol id="dl" viewBox="0 0 16 16"><path d="M8 1a.8.8 0 0 1 .8.8v7.5l2.4-2.4a.8.8 0 1 1 1.1 1.1l-3.75 3.75a.8.8 0 0 1-1.1 0L2.7 8a.8.8 0 1 1 1.1-1.1l2.4 2.4V1.8A.8.8 0 0 1 8 1ZM2 13.4a.8.8 0 0 1 .8-.8h10.4a.8.8 0 0 1 0 1.6H2.8a.8.8 0 0 1-.8-.8Z"/></symbol>
+  <symbol id="map" viewBox="0 0 16 16"><path d="M5.5 1 1 2.8v12.2l4.5-1.8 5 1.8L15 13.2V1l-4.5 1.8L5.5 1Zm0 1.7 4 1.6v9.1l-4-1.6V2.7Z"/></symbol>
+  <symbol id="bolt" viewBox="0 0 16 16"><path d="M9.4 0 2 9h4.2l-.6 7L13 7H8.8L9.4 0Z"/></symbol>
+  <symbol id="shield" viewBox="0 0 16 16"><path d="M8 0 1.5 2.6v5c0 3.5 2.7 6.8 6.5 8.4 3.8-1.6 6.5-4.9 6.5-8.4v-5L8 0Zm3.6 5.9-4.3 4.9a.8.8 0 0 1-1.15.04L3.9 8.6a.8.8 0 1 1 1.1-1.15l1.65 1.6 3.75-4.3a.8.8 0 0 1 1.2 1.05Z"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/icon.png" alt=""> Web Cloner</a>
+    <nav>
+      <a class="link" href="/features/">Features</a>
+      <a class="link" href="/download/">Download</a>
+      <a class="link" href="/guide/">Guide</a>
+      <a class="link" href="/developers/">Developers</a>
+      <a class="link" href="/faq/">FAQ</a>
+      <a class="star" href="https://github.com/DeveloperSarim/web-cloner-mac" aria-label="Star Web Cloner on GitHub">
+        <span><svg class="i sstar"><use href="#star"/></svg> Star</span>
+        <span class="num" id="stars">&mdash;</span>
+      </a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch colour theme">
+        <svg class="i sun"><use href="#sun"/></svg>
+        <svg class="i moon"><use href="#moon"/></svg>
+      </button>
+      <a class="btn btn-main" href="/download/"><svg class="i"><use href="#dl"/></svg> Download</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<div class="page-head">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> <svg class="i"><use href="#caret"/></svg> HTTrack alternative</p>
+    <h1>An HTTrack alternative for the Mac</h1>
+    <p class="lede">Same job, a native window, and a few things HTTrack never did.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap prose">
+    <p>HTTrack has been copying websites since 1998 and still works. On a Mac, though, it is a command line tool or an interface built for Windows, and it predates the way sites are put together now. Web Cloner does the same job in a native macOS window, and handles a few things HTTrack was never asked to.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>&nbsp;</th><th>Web Cloner</th><th>HTTrack on macOS</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Interface</td><td class="yes">Native Mac window</td><td class="no">Command line, or a port of the Windows UI</td></tr>
+        <tr><td>Install</td><td class="yes">Disk image or Homebrew cask</td><td class="no">Homebrew formula, terminal only</td></tr>
+        <tr><td>Progress</td><td class="yes">A live list of pages with sizes and failures</td><td class="no">A scrolling log</td></tr>
+        <tr><td>Assets on another domain</td><td class="yes">Downloaded and relinked after the mirror</td><td class="no">Needs manual configuration, often missed</td></tr>
+        <tr><td>Sitemap</td><td class="yes">Written after every run</td><td class="no">Not produced</td></tr>
+        <tr><td>Screenshots</td><td class="yes">Full-page PNG of each page</td><td class="no">Not a feature</td></tr>
+        <tr><td>Scan without saving</td><td class="yes">A mode of its own</td><td class="no">Possible with flags</td></tr>
+        <tr><td>Updates</td><td class="yes">In place, from the app</td><td class="no">Through your package manager</td></tr>
+        <tr><td>Apple Silicon</td><td class="yes">Native universal binary</td><td class="yes">Builds natively</td></tr>
+        <tr><td>Price and licence</td><td class="yes">Free, MIT</td><td class="yes">Free, GPL</td></tr>
+        <tr><td>Windows and Linux</td><td class="no">macOS only</td><td class="yes">Everywhere</td></tr>
+        <tr><td>Resume a stopped job</td><td class="no">Start again, finished files are kept</td><td class="yes">Built in</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap prose">
+    <h2>Where HTTrack still wins</h2>
+    <p>It runs on Windows and Linux, so a team on mixed machines can share one workflow. It resumes an interrupted mirror properly, which matters on very large sites. It has twenty-five years of options for situations nobody else has thought about.</p>
+
+    <h2>Where Web Cloner is easier</h2>
+    <p>You see what is happening. Each page lands in a list with its size and status instead of scrolling past in a log, and clicking a counter filters to every page that failed. Assets served from a separate domain come down and get relinked without you configuring anything, which is the usual reason a copy looks broken offline. Every run leaves a sitemap, and screenshots are a job rather than a separate tool.</p>
+
+    <h2>The honest summary</h2>
+    <p>If you need one tool across operating systems, or you mirror very large sites and resuming matters, HTTrack is still the right answer. If you are on a Mac and want a copy that opens correctly when you double-click it, Web Cloner gets you there with less setup. Both are free, so trying ours costs you a download.</p>
+
+    <h2>Other tools people compare</h2>
+    <ul>
+      <li><strong>SiteSucker</strong> is a long-running Mac app and a reasonable choice. It is paid on the App Store.</li>
+      <li><strong>wget</strong> itself is what Web Cloner drives. If you are happy in a terminal, the app will even hand you the command it would run.</li>
+      <li><strong>curl</strong> fetches single files well but does not crawl a site or rewrite links.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Try it</h2>
+    <div class="next">
+      <a href="/download/"><b>Download</b><span>Free, macOS 13 and later</span></a>
+      <a href="/guide/"><b>Step by step</b><span>Save your first site</span></a>
+      <a href="/developers/"><b>Developer options</b><span>Every field and its wget flag</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="close">
+  <div class="wrap">
+    <img class="mark" src="/icon.png" alt="">
+    <h2>Take a copy while it is still up</h2>
+    <p>Sites disappear. A copy on your own disk does not.</p>
+    <div class="actions">
+      <a class="btn btn-main btn-lg" href="https://github.com/DeveloperSarim/web-cloner-mac/releases/latest/download/WebCloner.dmg"><svg class="i"><use href="#apple"/></svg> <span data-version="Download Web Cloner %s">Download Web Cloner 1.2.0</span></a>
+      <a class="btn btn-ghost btn-lg" href="https://github.com/DeveloperSarim/web-cloner-mac"><svg class="i"><use href="#star"/></svg> Star on GitHub</a>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <p class="about"><img src="/icon.png" alt="">Web Cloner saves a whole website to your Mac, so it still opens when the site is gone. Free and open source, built by <a href="https://github.com/DeveloperSarim">Sarim Yaseen</a>.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="/features/">Features</a></li>
+          <li><a href="/guide/">How to save a site</a></li>
+          <li><a href="/developers/">Developer options</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/httrack-alternative/">HTTrack alternative</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="/download/">Download</a></li>
+          <li><a href="https://github.com/DeveloperSarim/web-cloner-mac">Source code</a></li>
+          <li><a href="https://github.com/DeveloperSarim/web-cloner-mac/releases">Releases</a></li>
+          <li><a href="https://github.com/DeveloperSarim/web-cloner-mac/issues">Report a bug</a></li>
+          <li><a href="https://github.com/DeveloperSarim/homebrew-tap">Homebrew tap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>MIT licensed. No account, no telemetry.</span>
+      <span class="right"><a href="https://github.com/DeveloperSarim/web-cloner-mac"><svg class="i"><use href="#gh"/></svg> GitHub</a><a href="/llms.txt">llms.txt</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/app.js?v=7c422ee7"></script>
+
+</body>
+</html>

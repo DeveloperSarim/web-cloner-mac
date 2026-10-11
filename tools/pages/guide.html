@@ -1,0 +1,92 @@
+<section>
+  <div class="wrap prose">
+    <p>This walks through saving a complete website on a Mac, from installing the app to opening the copy with the network off. It takes about two minutes of your attention, then however long the site needs.</p>
+    <p>Save sites you own, sites that invite it, or pages you are allowed to archive. Leave the robots setting alone unless the site is yours.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>Install Web Cloner</h3>
+          <p><a href="/download/">Download the disk image</a>, drag the app onto Applications, then right-click it and choose Open the first time. If <code>wget</code> is missing, the app offers to install it.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Type the address</h3>
+          <p>Put the site in the Address field. <code>example.com</code> is enough, the app fills in the rest. Starting from a section such as <code>example.com/docs</code> keeps the job inside that section.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Choose where it lands</h3>
+          <p>Save to defaults to a WebCloner folder in Downloads. Press Choose to put it anywhere else. Each site gets its own folder named after the host.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Pick the job</h3>
+          <p>Clone saves the site, Scan only lists what is there, Screenshot captures each page as an image. For an offline copy, leave it on Clone.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Set how deep and how fast</h3>
+          <p>Whole site follows every internal link; one or two levels is plenty for a quick copy. Set Speed to Polite on a site you do not run, which adds a pause between requests and a rate cap.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Press Start Cloning</h3>
+          <p>Pages appear in the list as they finish, with their size, and anything that fails is marked in red with the reason. Click a counter at the top to filter the list.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Open it offline</h3>
+          <p>When it finishes, press Open Website, which opens <code>index.html</code> from your disk. Turn off Wi-Fi and reload to prove the copy is complete.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap prose">
+    <h2>What ends up in the folder</h2>
+    <div class="command">&lt;save folder&gt;/
+  example.com/          the site, open index.html
+  cdn.example.net/      images and fonts from the asset domain
+  screenshots/          PNGs, if you ran that job
+  sitemap.xml           every page that was found</div>
+
+    <h2>Making a job smaller or faster</h2>
+    <ul>
+      <li><strong>Turn off images and media</strong> when you only want the words. HTML, CSS and JavaScript alone finish in a fraction of the time.</li>
+      <li><strong>Limit the depth.</strong> Two levels covers most of what anyone actually reads on a blog or a documentation site.</li>
+      <li><strong>Skip the heavy sections.</strong> In Advanced, leaving out a path such as <code>/blog</code>, or refusing PDFs, often removes most of the download. <a href="/developers/">See the options</a>.</li>
+    </ul>
+
+    <h2>When the copy does not look right</h2>
+    <p>If it opens but looks unstyled, the stylesheet probably lives on another domain and the run was stopped early. Let the job finish, because the repair pass that fetches those files runs at the end.</p>
+    <p>If whole sections are missing, the site likely builds its pages in the browser with JavaScript. <code>wget</code> does not run JavaScript, so it saves the shell rather than the content. Use the Screenshot job for those sites: it renders each page in WebKit and gives you an image of what a visitor sees.</p>
+    <p>If nothing downloads at all, check that the address loads in a browser, then try Polite speed, which some servers are happier with.</p>
+
+    <h2>Doing the same thing from a terminal</h2>
+    <p>Every option in the app is a <code>wget</code> flag, and the Advanced panel has a button that copies the finished command. Paste it into a script when you want the same job to run on a schedule. <a href="/developers/">The full mapping is here</a>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Next</h2>
+    <div class="next">
+      <a href="/developers/"><b>Developer options</b><span>Narrow a job down to exactly what you want</span></a>
+      <a href="/faq/"><b>FAQ</b><span>JavaScript sites, sizes, licensing</span></a>
+      <a href="/download/"><b>Download</b><span>Get the app</span></a>
+    </div>
+  </div>
+</section>

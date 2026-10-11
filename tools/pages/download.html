@@ -1,0 +1,53 @@
+<section>
+  <div class="wrap prose">
+    <h2>Get the app</h2>
+    <p>Two ways, both free. The disk image is the usual route. Homebrew is handy if you already live in a terminal.</p>
+    <div class="actions" style="margin-bottom:24px">
+      <a class="btn btn-main btn-lg" href="DMG"><svg class="i"><use href="#apple"/></svg> <span data-version="Download Web Cloner %s">Download Web Cloner VERSION</span></a>
+      <a class="btn btn-ghost btn-lg" href="REPO/releases"><svg class="i"><use href="#gh"/></svg> All releases</a>
+    </div>
+    <div class="command">brew install --cask DeveloperSarim/tap/web-cloner</div>
+
+    <h2>What it needs</h2>
+    <ul>
+      <li><strong>macOS 13 Ventura or later.</strong></li>
+      <li><strong>Any Mac from the last decade.</strong> One universal build runs natively on Intel and Apple Silicon.</li>
+      <li><strong><code>wget</code>.</strong> The app installs it through Homebrew if it is missing, and installs Homebrew first when you do not have that either. The cask above pulls it in for you.</li>
+      <li><strong>About 6 MB of disk</strong> for the app. Saved sites live wherever you point them.</li>
+    </ul>
+
+    <h2>Opening it the first time</h2>
+    <p>Web Cloner is signed so it runs, but it is not notarised by Apple, which costs 99 dollars a year. macOS therefore asks about it once. Right-click the app in Applications, choose <strong>Open</strong>, then confirm. After that it opens normally.</p>
+    <p>Installing with Homebrew and want to skip that prompt? Add the flag:</p>
+    <div class="command">brew install --cask --no-quarantine DeveloperSarim/tap/web-cloner</div>
+
+    <h2>Updates</h2>
+    <p>Nothing to do. On launch the app asks for the newest release and, if there is one, offers to install it in place. Your settings and saved sites stay where they are. There is also <strong>Web Cloner</strong> then <strong>Check for Updates</strong> in the menu bar.</p>
+
+    <h2>Checking the file you downloaded</h2>
+    <p>If you want to confirm the disk image is the one that was published, compare its checksum:</p>
+    <div class="command">shasum -a 256 ~/Downloads/WebCloner.dmg</div>
+    <p>The expected value for the current version sits in the <a href="https://github.com/DeveloperSarim/homebrew-tap/blob/main/Casks/web-cloner.rb">Homebrew cask</a>, which Homebrew checks for you on every install.</p>
+
+    <h2>Building it yourself</h2>
+    <p>The app is a handful of Swift files with no dependencies. With the Xcode command line tools installed:</p>
+    <div class="command">git clone REPO.git
+cd web-cloner-mac
+./build.sh</div>
+    <p>That produces the app and a disk image as a universal binary. Full Xcode is not required.</p>
+
+    <h2>Removing it</h2>
+    <p>Drag the app to the Trash, or <code>brew uninstall --cask web-cloner</code>. Sites you saved are plain folders and stay untouched until you delete them yourself.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Next</h2>
+    <div class="next">
+      <a href="/guide/"><b>How to save a website</b><span>Your first clone, step by step</span></a>
+      <a href="/features/"><b>Features</b><span>What the three jobs produce</span></a>
+      <a href="/faq/"><b>FAQ</b><span>Sizes, JavaScript, licensing</span></a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,104 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is it really free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. MIT licensed, no account, no telemetry, no paid tier and no upsell. The whole source is on GitHub and you can build it yourself with the Xcode command line tools."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work on JavaScript-heavy sites?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "wget does not run JavaScript, so a site that renders entirely in the browser gives you its shell rather than its content. Use the Screenshot job for those: it renders each page in WebKit, the engine behind Safari, and saves what a visitor would see."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do some copies lose their images?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most tools mirror a single host, and modern sites keep their pictures, fonts and stylesheets on a separate asset domain. Web Cloner runs a repair pass after the mirror that downloads those files and points every reference at the local copy, which is the main reason its copies open properly offline."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How big will the download be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That depends entirely on the site. Run the Scan job first: it walks the same links without saving anything and tells you how many pages exist. Turning off images and media, or limiting the depth to one or two levels, cuts most jobs down sharply."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it get me blocked?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Set Speed to Polite and the app waits between requests and caps its transfer rate, which is the courteous way to treat a server that is not yours. Robots rules are respected unless you turn that off, which is a setting for sites you run yourself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I save part of a site?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Start from the section URL, or open Advanced and use Only these paths to keep the job inside one folder, and Skip these paths to leave sections out. The full list of options is here."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Intel or Apple Silicon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both. One universal build, native on each, no Rosetta. macOS 13 Ventura or later."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does macOS warn me the first time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The app is signed so it runs, but it is not notarised by Apple, which is a paid developer programme. Right-click the app and choose Open the first time, and macOS stops asking. You can also install with Homebrew and skip the prompt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do updates work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The app checks for a newer release on launch and offers to install it in place, keeping your settings and your saved sites. There is also Check for Updates in the menu. Nothing to download twice, nothing to delete."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do the files go?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Into the folder you pick, one directory per host, plus a screenshots folder when you run that job and a sitemap.xml listing every page found. They are ordinary files and folders, so you can move, zip or back them up like anything else."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this an HTTrack alternative?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Same job, different shape: a native macOS window, a live page list instead of a log to decode, a sitemap after every run, screenshots built in, and the repair pass that keeps offline copies from losing their images. A closer comparison is here."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the copies commercially?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The app is MIT licensed, so the software is yours to use however you like. What you download with it belongs to whoever made it, and copyright still applies. Save what you own or have permission to save."
+      }
+    }
+  ]
+}
+</script>

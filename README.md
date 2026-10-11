@@ -198,6 +198,8 @@ Tests/update/main.swift  # real release download and app swap
 build.sh                 # universal build and DMG
 ```
 
+The website lives in `docs/`. Page bodies are in `tools/pages/`, and `python3 tools/build-site.py` wraps them in the shared chrome and rewrites `sitemap.xml`, `robots.txt`, `llms.txt` and `llms-full.txt`. Upload the contents of `docs/` to the web host after a change.
+
 Releasing a new version:
 
 1. Bump `VERSION` in `build.sh` and run it.

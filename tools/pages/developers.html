@@ -1,0 +1,69 @@
+<section>
+  <div class="wrap prose">
+    <p>Open <strong>Advanced</strong> in the Options card and the app stops guessing. Each field maps to exactly one <code>wget</code> flag, and a field you leave empty adds nothing to the command.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Field</th><th class="says">What it does</th><th>Flag</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Skip these paths</td><td class="says">Leave out whole sections, comma separated</td><td class="flag">--exclude-directories</td></tr>
+        <tr><td>Only these paths</td><td class="says">Save one section and nothing else</td><td class="flag">--include-directories</td></tr>
+        <tr><td>Skip URLs matching</td><td class="says">A regular expression tested against the full URL</td><td class="flag">--reject-regex</td></tr>
+        <tr><td>Skip file types</td><td class="says">Extensions to refuse, comma separated</td><td class="flag">--reject</td></tr>
+        <tr><td>Also allow domains</td><td class="says">Follow an extra asset domain alongside the site</td><td class="flag">--span-hosts --domains</td></tr>
+        <tr><td>Stop after</td><td class="says">A hard cap in megabytes</td><td class="flag">--quota</td></tr>
+        <tr><td>Extra headers</td><td class="says">One per line, sent with every request</td><td class="flag">--header</td></tr>
+        <tr><td>HTTP user and password</td><td class="says">Basic authentication</td><td class="flag">--user, --password</td></tr>
+        <tr><td>Keep original links</td><td class="says">Leaves the HTML exactly as the server sent it</td><td class="flag">drops --convert-links</td></tr>
+        <tr><td>Ignore SSL errors</td><td class="says">For a staging box with a bad certificate</td><td class="flag">--no-check-certificate</td></tr>
+        <tr><td>How deep</td><td class="says">Whole site, or one to five levels</td><td class="flag">--level</td></tr>
+        <tr><td>Speed</td><td class="says">Polite adds a wait and a rate cap</td><td class="flag">--wait, --limit-rate</td></tr>
+        <tr><td>Download images and media</td><td class="says">Off leaves HTML, CSS and JavaScript</td><td class="flag">--reject on media types</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap prose">
+    <h2>Two examples</h2>
+
+    <h3>Documentation only</h3>
+    <p>Put <code>/docs</code> in <strong>Only these paths</strong>. Everything outside it is ignored, including the marketing pages and the blog that usually account for most of a download.</p>
+
+    <h3>Everything except the archives</h3>
+    <p>Put <code>pdf</code> in <strong>Skip file types</strong> and <code>/tag/</code> in <strong>Skip URLs matching</strong>. Tag and category pages repeat content you already have, so dropping them often halves the job.</p>
+
+    <h2>The command it builds</h2>
+    <p><strong>Copy wget command</strong> puts the exact invocation on your clipboard, ready for a terminal or a scheduled script. The app log hides any password; the copied command keeps it so the command still runs.</p>
+    <div class="command">wget --recursive --level=inf --no-parent --convert-links --page-requisites \
+     --exclude-directories=/blog --reject-regex='\.pdf$' --quota=500m \
+     --directory-prefix=/Users/you/Downloads/WebCloner https://example.studio</div>
+
+    <h2>What the app adds on top of wget</h2>
+    <p>Two things happen that a bare command does not do.</p>
+    <p><strong>The page list</strong> is parsed from wget's own output. Each URL becomes a row with a state and a size, assets are kept out of the way, and the counters filter the list.</p>
+    <p><strong>The repair pass</strong> runs when a clone finishes. It reads the saved HTML and CSS, finds asset URLs that still point at another domain, downloads the ones you do not have yet, and rewrites each reference to the local file. It repeats once, so assets referenced by a stylesheet it just fetched are picked up too. That is the step that keeps images from going missing in an offline copy.</p>
+
+    <h2>Reading the source</h2>
+    <p>Argument building lives in one function, <code>wgetArgs()</code>, with tests beside it, so what the app runs is easy to check. The whole project is four Swift files. <a href="REPO">Read it on GitHub</a>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Next</h2>
+    <div class="next">
+      <a href="/features/"><b>Features</b><span>What each job produces</span></a>
+      <a href="/guide/"><b>Step by step</b><span>Your first saved site</span></a>
+      <a href="REPO"><b>Source code</b><span>Swift, build script and tests</span></a>
+    </div>
+  </div>
+</section>
