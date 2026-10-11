@@ -58,3 +58,15 @@
       .catch(function () {});
   }
 })();
+
+// The menu is a <details>, so it needs closing when you click away or hit Escape.
+(function () {
+  var menu = document.getElementById('menu');
+  if (!menu) return;
+  document.addEventListener('click', function (e) {
+    if (menu.open && !menu.contains(e.target)) menu.open = false;
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); }
+  });
+})();

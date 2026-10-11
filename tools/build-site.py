@@ -115,23 +115,35 @@ def head(slug, title, desc, extra_ld=""):
 
 def nav(slug):
     links = ""
-    for s, label, _t, _d, _h, _l in PAGES:
-        if s == "" or label == "HTTrack alternative":
+    sheet = ""
+    for sl, label, _t, _d, _h, _l in PAGES:
+        if sl == "":
             continue
-        current = ' aria-current="page"' if s == slug else ""
-        links += '      <a class="link" href="/' + s + '"' + current + ">" + label + "</a>\n"
+        current = ' aria-current="page"' if sl == slug else ""
+        if label != "HTTrack alternative":
+            links += '      <a class="link" href="/' + sl + '"' + current + ">" + label + "</a>\n"
+        sheet += '        <a href="/' + sl + '"' + current + ">" + label + "</a>\n"
+
     return (
         '<header class="top">\n  <div class="wrap">\n'
         '    <a class="brand" href="/"><img src="/icon.png" alt=""> Web Cloner</a>\n'
-        "    <nav>\n" + links +
+        '    <nav class="links">\n' + links + "    </nav>\n"
+        '    <div class="tools">\n'
         '      <a class="star" href="' + REPO + '" aria-label="Star Web Cloner on GitHub">\n'
         '        <span><svg class="i sstar"><use href="#star"/></svg> Star</span>\n'
         '        <span class="num" id="stars">&mdash;</span>\n      </a>\n'
         '      <button class="icon-btn" id="theme" type="button" aria-label="Switch colour theme">\n'
         '        <svg class="i sun"><use href="#sun"/></svg>\n'
         '        <svg class="i moon"><use href="#moon"/></svg>\n      </button>\n'
-        '      <a class="btn btn-main" href="/download/"><svg class="i"><use href="#dl"/></svg> Download</a>\n'
-        "    </nav>\n  </div>\n</header>\n\n"
+        '      <a class="btn btn-main dl" href="/download/"><svg class="i"><use href="#dl"/></svg> Download</a>\n'
+        '      <details class="menu" id="menu">\n'
+        '        <summary class="icon-btn" aria-label="Open menu"><svg class="i"><use href="#burger"/></svg></summary>\n'
+        '        <div class="sheet">\n' + sheet +
+        '          <div class="sep"></div>\n'
+        '          <a href="' + REPO + '">Source on GitHub</a>\n'
+        '          <a class="btn btn-main" href="/download/"><svg class="i"><use href="#dl"/></svg> Download</a>\n'
+        "        </div>\n      </details>\n"
+        "    </div>\n  </div>\n</header>\n\n"
     )
 
 

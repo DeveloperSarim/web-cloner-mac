@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=842128a4">
+<link rel="stylesheet" href="/styles.css?v=ceb4bfd7">
 <script>
   try {
     var saved = localStorage.getItem('theme');
@@ -49,17 +49,20 @@
   <symbol id="map" viewBox="0 0 16 16"><path d="M5.5 1 1 2.8v12.2l4.5-1.8 5 1.8L15 13.2V1l-4.5 1.8L5.5 1Zm0 1.7 4 1.6v9.1l-4-1.6V2.7Z"/></symbol>
   <symbol id="bolt" viewBox="0 0 16 16"><path d="M9.4 0 2 9h4.2l-.6 7L13 7H8.8L9.4 0Z"/></symbol>
   <symbol id="shield" viewBox="0 0 16 16"><path d="M8 0 1.5 2.6v5c0 3.5 2.7 6.8 6.5 8.4 3.8-1.6 6.5-4.9 6.5-8.4v-5L8 0Zm3.6 5.9-4.3 4.9a.8.8 0 0 1-1.15.04L3.9 8.6a.8.8 0 1 1 1.1-1.15l1.65 1.6 3.75-4.3a.8.8 0 0 1 1.2 1.05Z"/></symbol>
+  <symbol id="burger" viewBox="0 0 16 16"><path d="M1.5 4h13a.75.75 0 0 0 0-1.5h-13a.75.75 0 0 0 0 1.5Zm0 4.75h13a.75.75 0 0 0 0-1.5h-13a.75.75 0 0 0 0 1.5Zm0 4.75h13a.75.75 0 0 0 0-1.5h-13a.75.75 0 0 0 0 1.5Z"/></symbol>
 </svg>
 
 <header class="top">
   <div class="wrap">
     <a class="brand" href="/"><img src="/icon.png" alt=""> Web Cloner</a>
-    <nav>
+    <nav class="links">
       <a class="link" href="/features/" aria-current="page">Features</a>
       <a class="link" href="/download/">Download</a>
       <a class="link" href="/guide/">Guide</a>
       <a class="link" href="/developers/">Developers</a>
       <a class="link" href="/faq/">FAQ</a>
+    </nav>
+    <div class="tools">
       <a class="star" href="https://github.com/DeveloperSarim/web-cloner-mac" aria-label="Star Web Cloner on GitHub">
         <span><svg class="i sstar"><use href="#star"/></svg> Star</span>
         <span class="num" id="stars">&mdash;</span>
@@ -68,8 +71,22 @@
         <svg class="i sun"><use href="#sun"/></svg>
         <svg class="i moon"><use href="#moon"/></svg>
       </button>
-      <a class="btn btn-main" href="/download/"><svg class="i"><use href="#dl"/></svg> Download</a>
-    </nav>
+      <a class="btn btn-main dl" href="/download/"><svg class="i"><use href="#dl"/></svg> Download</a>
+      <details class="menu" id="menu">
+        <summary class="icon-btn" aria-label="Open menu"><svg class="i"><use href="#burger"/></svg></summary>
+        <div class="sheet">
+        <a href="/features/" aria-current="page">Features</a>
+        <a href="/download/">Download</a>
+        <a href="/guide/">Guide</a>
+        <a href="/developers/">Developers</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/httrack-alternative/">HTTrack alternative</a>
+          <div class="sep"></div>
+          <a href="https://github.com/DeveloperSarim/web-cloner-mac">Source on GitHub</a>
+          <a class="btn btn-main" href="/download/"><svg class="i"><use href="#dl"/></svg> Download</a>
+        </div>
+      </details>
+    </div>
   </div>
 </header>
 
@@ -184,7 +201,7 @@
   </div>
 </footer>
 
-<script src="/app.js?v=7c422ee7"></script>
+<script src="/app.js?v=d31bf34f"></script>
 
 </body>
 </html>
